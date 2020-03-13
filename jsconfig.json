@@ -1,0 +1,9 @@
+//https://stackoverflow.com/questions/51421545/is-it-possible-for-absolute-paths-to-autocomplete-in-visual-studio-code-vscode
+
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "baseUrl": "./"
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
+}
