@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 import movieReducer, { initialState as movieState } from './movieDuck';
 
 export const initialState = {
-  movieReducer: movieState,
+  movies: movieState,
 };
 
 export default combineReducers({
-  movieReducer,
+  movies: movieReducer,
 });

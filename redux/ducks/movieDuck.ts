@@ -4,29 +4,46 @@ import axios from 'axios';
 // Actions
 const SET_MOVIES = 'SET_MOVIES';
 
-interface MovieState {
-  name: string;
-}
-
 type DispatchType = (arg: Action) => Action;
 
-export const initialState: MovieState = { name: 'blah blah' };
+export const initialState: MovieState = { data: [] };
 
 export default function UserReducer(state = initialState, action: Action): MovieState {
   switch (action.type) {
     case SET_MOVIES:
-      return action.payload;
+      return { ...state, data: action.payload };
     default:
       return state;
   }
 }
 
 export const fetchMovies = () => async (dispatch: DispatchType) => {
-  const response = await axios.get('/data');
-  console.log('response :', response);
-  const fakeRes = { name: 'bbe' };
-  dispatch({
+  try {
+    const res = await axios.get('/data');
+    console.log('response :', res);
+    dispatch({
+      type: SET_MOVIES,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error('error :', err);
+  }
+};
+
+// Actions
+export const setMovies = (payload: IMovie[]) => {
+  return {
     type: SET_MOVIES,
-    payload: fakeRes,
-  });
+    payload: payload,
+  };
+};
+
+// Utils function
+export const fetchM = async () => {
+  try {
+    const res = await axios.get('/data');
+    return res;
+  } catch (err) {
+    console.error('error :', err);
+  }
 };

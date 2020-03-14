@@ -1,5 +1,5 @@
 import { NextPageContext } from 'next';
-import App from 'next/app';
+import App, { AppContext } from 'next/app';
 import Head from 'next/head';
 import withRedux from 'next-redux-wrapper';
 import { Provider } from 'react-redux';
@@ -7,6 +7,8 @@ import store from '../redux/store';
 import { BASE_URL } from 'shared/constants';
 import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
+import { Store } from 'redux';
+import { fetchM, setMovies } from 'redux/ducks/movieDuck';
 
 const theme = {
   primary: 'blue',
@@ -14,14 +16,24 @@ const theme = {
 
 axios.defaults.baseURL = BASE_URL;
 
-interface AppContext extends NextPageContext {
-  store: any;
+interface Props extends NextPageContext {
+  store: Store;
 }
 
-class MyApp extends App<AppContext> {
+class MyApp extends App<Props> {
   componentDidMount() {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) jssStyles.parentNode.removeChild(jssStyles);
+  }
+
+  // Fetch Movie, server side
+  static async getInitialProps({ Component, ctx }: AppContext) {
+    const moviesFromServer = await fetchM();
+    ctx.store.dispatch(setMovies(moviesFromServer?.data));
+
+    return {
+      pageProps: Component.getInitialProps ? await Component.getInitialProps(ctx) : {},
+    };
   }
 
   render() {
