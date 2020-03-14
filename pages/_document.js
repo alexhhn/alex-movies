@@ -2,9 +2,8 @@
 
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
+import { ServerStyleSheet } from 'styled-components';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles';
-import { GlobalStyle } from 'shared/globalStyle';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -20,10 +19,7 @@ export default class MyDocument extends Document {
             // https://spectrum.chat/next-js/general/ssr-global-styles-with-styled-components-v4~605fa241-b194-4c6b-b071-1816fb96074b
             styledComponentSheet.collectStyles(
               materialUiSheets.collect(
-                <>
-                  <GlobalStyle />
                   <App {...props} />
-                </>,
               ),
             ),
         });

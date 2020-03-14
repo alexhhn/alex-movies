@@ -8,13 +8,14 @@ interface Props {
 const MovieList = ({ movies }: Props) => (
   <Wrapper>
     {movies.map(movie => (
-      <MovieCard key={movie.id} />
+      <MovieCard key={movie.id} {...movie} />
     ))}
   </Wrapper>
 );
 
 const Wrapper = styled.div`
-  background-color: red;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export default MovieList;

@@ -4,8 +4,6 @@ import { Action } from '../redux-types';
 // Actions
 const SET_MOVIES = 'SET_MOVIES';
 
-type DispatchType = (arg: Action) => Action;
-
 export const initialState: MovieState = { data: [] };
 
 export default function UserReducer(state = initialState, action: Action): MovieState {

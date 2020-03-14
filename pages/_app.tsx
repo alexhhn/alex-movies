@@ -9,10 +9,8 @@ import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
 import { Store } from 'redux';
 import { fetchMovies, setMovies } from 'redux/ducks/movieDuck';
-
-const theme = {
-  primary: 'blue',
-};
+import { GlobalStyle } from 'shared/globalStyle';
+import { defaultTheme } from 'shared/theme';
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -43,8 +41,11 @@ class MyApp extends App<Props> {
         <Head>
           <title>Miles Movies</title>
         </Head>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
+        <ThemeProvider theme={defaultTheme}>
+          <>
+            <Component {...pageProps} />
+            <GlobalStyle />
+          </>
         </ThemeProvider>
       </Provider>
     );

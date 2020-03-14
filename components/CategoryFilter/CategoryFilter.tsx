@@ -21,17 +21,16 @@ const CategoryFilter = () => {
 
   return (
     <>
-      {chipData.map(data => {
-        let icon;
+      {chipData.map(data =>
+      // let icon;
 
-        return (
+        (
           <Chip
             key={data.key}
             label={data.label}
             onDelete={data.label === 'React' ? undefined : handleDelete(data)}
           />
-        );
-      })}
+        ))}
     </>
   );
 };

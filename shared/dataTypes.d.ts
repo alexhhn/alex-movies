@@ -8,8 +8,10 @@ interface IMovie {
   year: string;
   genres: string[];
   ratings: string[];
-  posterUrl: string;
+  posterurl: string;
   imdbRating: number;
   originalTitle?: '';
   actors: string[];
+  duration: string;
+  contentRating: string;
 }
