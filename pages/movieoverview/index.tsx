@@ -18,7 +18,6 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
     </Wrapper>
   );
 };
-
 const Wrapper = styled.div`
   background-color: white;
   width: 400px;
@@ -33,8 +32,7 @@ MovieOverview.getInitialProps = ctx => {
 
 export default MovieOverview;
 
-{
-  /* <p>
+/* <p>
 {' '}
 In this view you will display the movie title, poster image, year and rating Listing of
 movie overview elements
@@ -46,4 +44,3 @@ A user should be able to sort this list based on the data displayed in the overv
 A user should be able to favorite a movie and filter the list so that only favorites are
 displayed
 </li> */
-}

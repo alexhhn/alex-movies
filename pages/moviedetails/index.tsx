@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 const MovieDetails: NextPage<{ userAgent: string }> = ({ userAgent }) => (
   <>
     <h1>Movie Details</h1>
+    <p>{userAgent}</p>
     <p>
       Movie details - in this view will display more detailed information about the movie such as
       plot, actos etc.

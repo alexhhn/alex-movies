@@ -1,5 +1,5 @@
-import { Action } from '../redux-types';
 import axios from 'axios';
+import { Action } from '../redux-types';
 
 // Actions
 const SET_MOVIES = 'SET_MOVIES';
@@ -17,33 +17,19 @@ export default function UserReducer(state = initialState, action: Action): Movie
   }
 }
 
-export const fetchMovies = () => async (dispatch: DispatchType) => {
-  try {
-    const res = await axios.get('/data');
-    console.log('response :', res);
-    dispatch({
-      type: SET_MOVIES,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.error('error :', err);
-  }
-};
-
 // Actions
-export const setMovies = (payload: IMovie[]) => {
-  return {
-    type: SET_MOVIES,
-    payload: payload,
-  };
-};
+export const setMovies = (payload: IMovie[]) => ({
+  type: SET_MOVIES,
+  payload,
+});
 
 // Utils function
-export const fetchM = async () => {
+export const fetchMovies = async () => {
   try {
     const res = await axios.get('/data');
     return res;
   } catch (err) {
     console.error('error :', err);
+    return undefined;
   }
 };

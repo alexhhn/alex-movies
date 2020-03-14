@@ -5,15 +5,13 @@ interface Props {
   movies: IMovie[];
 }
 
-const MovieList = ({ movies }: Props) => {
-  return (
-    <Wrapper>
-      {movies.map((movie, i) => (
-        <MovieCard key={i} />
-      ))}
-    </Wrapper>
-  );
-};
+const MovieList = ({ movies }: Props) => (
+  <Wrapper>
+    {movies.map(movie => (
+      <MovieCard key={movie.id} />
+    ))}
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
   background-color: red;

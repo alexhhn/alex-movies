@@ -1,7 +1,7 @@
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware, Store as ReduxStore } from 'redux';
-import reducers, { initialState } from './ducks/rootReducers';
 import { MakeStore } from 'next-redux-wrapper';
+import reducers, { initialState } from './ducks/rootReducers';
 
 const dev: boolean = process.env.NODE_ENV !== 'production';
 

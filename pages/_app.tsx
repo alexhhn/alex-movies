@@ -8,7 +8,7 @@ import { BASE_URL } from 'shared/constants';
 import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
 import { Store } from 'redux';
-import { fetchM, setMovies } from 'redux/ducks/movieDuck';
+import { fetchMovies, setMovies } from 'redux/ducks/movieDuck';
 
 const theme = {
   primary: 'blue',
@@ -28,7 +28,7 @@ class MyApp extends App<Props> {
 
   // Fetch Movie, server side
   static async getInitialProps({ Component, ctx }: AppContext) {
-    const moviesFromServer = await fetchM();
+    const moviesFromServer = await fetchMovies();
     ctx.store.dispatch(setMovies(moviesFromServer?.data));
 
     return {

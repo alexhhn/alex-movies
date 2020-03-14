@@ -7,7 +7,9 @@
     "dev": "next -p 4000",
     "build": "next build",
     "start": "next start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
+    "lint-fix": "eslint --fix  --ext .js,.jsx,.ts,.tsx ./"
   },
   "keywords": [],
   "author": "",
@@ -27,7 +29,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.4.1",
-    "styled-icons": "^9.1.0"
+    "styled-icons": "^9.1.0",
+    "eslint": "^6.8.0"
   },
   "devDependencies": {
     "@types/node": "^13.9.1",
@@ -39,7 +42,15 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-preset-react-app": "^9.1.0",
-    "@babel/core": "^7.8.3"
+    "@babel/core": "^7.8.3",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "eslint-config-airbnb-typescript": "^7.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "ts-loader": "^6.2.1",
+    "ts-jest": "^25.0.0"
   },
   "prettier": {
     "singleQuote": true,
