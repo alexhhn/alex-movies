@@ -3,6 +3,7 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles';
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -12,7 +13,9 @@ const GlobalStyle = createGlobalStyle`
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const sheet = new ServerStyleSheet();
+    const styledComponentSheet = new ServerStyleSheet();
+    const materialUiSheets = new MaterialUiServerStyleSheets();
+
     const originalRenderPage = ctx.renderPage;
 
     try {
@@ -20,26 +23,29 @@ export default class MyDocument extends Document {
         originalRenderPage({
           enhanceApp: App => props =>
             // https://spectrum.chat/next-js/general/ssr-global-styles-with-styled-components-v4~605fa241-b194-4c6b-b071-1816fb96074b
-            sheet.collectStyles(
-              <>
-                <GlobalStyle />
-                <App {...props} />
-              </>,
+            styledComponentSheet.collectStyles(
+              materialUiSheets.collect(
+                <>
+                  <GlobalStyle />
+                  <App {...props} />
+                </>,
+              ),
             ),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
       return {
         ...initialProps,
-        styles: (
-          <>
+        styles: [
+          <React.Fragment key="styles">
             {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        ),
+            {materialUiSheets.getStyleElement()}
+            {styledComponentSheet.getStyleElement()}
+          </React.Fragment>,
+        ],
       };
     } finally {
-      sheet.seal();
+      styledComponentSheet.seal();
     }
   }
 
@@ -47,7 +53,11 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+          <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
         </Head>
         <body>
           <Main />

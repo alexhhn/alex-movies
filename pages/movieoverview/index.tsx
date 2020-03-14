@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { fetchMovies } from '../../redux/ducks/movieDuck';
 import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
+import MovieCard from 'components/MovieCard/MovieCard';
 
 interface Props {
   custom: string;
@@ -16,8 +17,9 @@ const MovieOverview: NextPage<Props> = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <CardWrapper>
       <h1>Movie Overview</h1>
+      <MovieCard />
       <p>
         {' '}
         In this view you will display the movie title, poster image, year and rating Listing of
@@ -30,12 +32,12 @@ const MovieOverview: NextPage<Props> = () => {
         A user should be able to favorite a movie and filter the list so that only favorites are
         displayed
       </li>
-    </Wrapper>
+    </CardWrapper>
   );
 };
 
-const Wrapper = styled.div`
-  background-color: red;
+const CardWrapper = styled.div`
+  background-color: white;
 `;
 
 MovieOverview.getInitialProps = ctx => {
