@@ -4,12 +4,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet, createGlobalStyle } from 'styled-components';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles';
-
-const GlobalStyle = createGlobalStyle`
-    body {
-        padding: 0;
-    }
-`;
+import { GlobalStyle } from 'shared/globalStyle';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
