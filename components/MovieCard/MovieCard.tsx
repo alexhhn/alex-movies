@@ -105,6 +105,7 @@ const Content = styled(CardContent)`
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    width: 60%;
   }
   padding: 0 12px 12px;
 

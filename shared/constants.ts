@@ -27,7 +27,7 @@ export const sortValues = [
   { id: YEAR_HIGH_ID, property: 'Year - Higest' },
 ];
 
-export const SortValuesIds = {
+export const sortValuesIds = {
   acsendingId: ACSENDING_ID,
   descendingId: DECSENDING_ID,
   ratingLowId: RATING_LOW_ID,

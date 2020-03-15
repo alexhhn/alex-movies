@@ -12,6 +12,7 @@ import { movieHasCategory, getSortedMovies } from 'redux/ducks/movieDuck/movieUt
 import SortFilter from 'components/SortFilter/SortFilter';
 import _orderBy from 'lodash/orderBy';
 import Logo from 'public/images/logo.png';
+import devices from 'shared/media';
 
 interface Props {
   custom: string;
@@ -43,13 +44,13 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
         <img src={Logo} />
         <p>REAL RATINGS</p>
       </LogoView>
-      {/* <FilterView>
+      <FilterView>
         <CategoryFilter
           categories={categories}
           onChipSelect={categoryId => dispatch(toggleCategory(categoryId))}
         />
         <SortFilter onSortItemSelect={sortItemId => dispatch(setSortby(sortItemId))} />
-      </FilterView> */}
+      </FilterView>
       <MovieList movies={sortedMovies} />
     </Wrapper>
   );
@@ -78,6 +79,11 @@ const LogoView = styled.div`
 const FilterView = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
+
+  @media ${devices.mobileOnly} {
+    flex-direction: column;
+  }
 `;
 
 MovieOverview.getInitialProps = ctx => {

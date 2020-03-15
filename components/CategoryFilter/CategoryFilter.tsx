@@ -2,6 +2,7 @@ import Chip from '@material-ui/core/Chip';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import _sortBy from 'lodash/sortBy';
+import devices from 'shared/media';
 
 interface Props {
   categories: Category[];
@@ -48,8 +49,16 @@ const CategoryFilter = ({ categories, onChipSelect }: Props) => {
 };
 
 const Wrapper = styled.div`
-  /* width: 80%; */
-  margin-top: 32px;
+  @media ${devices.mobileOnly} {
+    width: 100%;
+    display: grid;
+    grid-gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+
+    /* flex-wrap: wrap; */
+    /* justify-content: space-around; */
+  }
 `;
 
 interface ChipProps {
@@ -58,15 +67,34 @@ interface ChipProps {
 
 const StyledChip = styled(Chip)<ChipProps>`
   &.MuiChip-root {
-    margin: 0 4px 4px 0;
+    margin: 0 4px 8px 0;
     height: 32px;
     border-radius: 100px;
     color: ${props => props.selected && props.theme.chipColor};
     background-color: ${props => props.selected && props.theme.chipBGColor};
     min-width: 120px;
-    .MuiChip-label {
-      font-size: 16px;
-      padding: 8px 32px;
+    font-size: 16px;
+
+    @media ${devices.tabletOnly} {
+      height: 28px;
+      padding: 4px 8px;
+      min-width: 120px;
+
+      .MuiChip-label {
+        font-size: 16px;
+        padding: 8px 32px;
+      }
+    }
+
+    @media ${devices.mobileOnly} {
+      height: 24px;
+      margin: 0;
+      padding: 2px 4px;
+      min-width: 100px;
+      .MuiChip-label {
+        font-size: 12px;
+        padding: 8px;
+      }
     }
   }
 

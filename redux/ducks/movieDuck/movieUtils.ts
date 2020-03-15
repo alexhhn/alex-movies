@@ -2,7 +2,7 @@ import axios from 'axios';
 import utils from 'shared/utils';
 import _orderBy from 'lodash/orderBy';
 
-import { SortValuesIds } from 'shared/constants';
+import { sortValuesIds } from 'shared/constants';
 
 export const fetchMovies = async () => {
   try {
@@ -38,34 +38,34 @@ export const movieHasCategory = (movie: IMovie, selectedCategories: string[]) =>
 export const getSortedMovies = (movies: IMovie[], sortByItemId: string) => {
   let result;
   switch (sortByItemId) {
-    case SortValuesIds.acsendingId:
+    case sortValuesIds.acsendingId:
       result = _orderBy(movies, 'title', ['asc']);
       break;
-    case SortValuesIds.descendingId:
+    case sortValuesIds.descendingId:
       result = _orderBy(movies, 'title', ['desc']);
       break;
-    case SortValuesIds.ratingLowId:
+    case sortValuesIds.ratingLowId:
       result = _orderBy(movies, 'rating', ['asc']);
       break;
-    case SortValuesIds.ratingHighId:
+    case sortValuesIds.ratingHighId:
       result = _orderBy(movies, 'rating', ['desc']);
       break;
-    case SortValuesIds.imdbRatingLowId:
+    case sortValuesIds.imdbRatingLowId:
       result = _orderBy(movies, 'imdbRating', ['asc']);
       break;
-    case SortValuesIds.imdbRatingHighId:
+    case sortValuesIds.imdbRatingHighId:
       result = _orderBy(movies, 'imdbRating', ['desc']);
       break;
-    case SortValuesIds.durationLowId:
+    case sortValuesIds.durationLowId:
       result = _orderBy(movies, 'duration', ['asc']);
       break;
-    case SortValuesIds.durationHighId:
+    case sortValuesIds.durationHighId:
       result = _orderBy(movies, 'duration', ['desc']);
       break;
-    case SortValuesIds.yearLowId:
+    case sortValuesIds.yearLowId:
       result = _orderBy(movies, 'year', ['asc']);
       break;
-    case SortValuesIds.yearHighId:
+    case sortValuesIds.yearHighId:
       result = _orderBy(movies, 'year', ['desc']);
       break;
     default:
