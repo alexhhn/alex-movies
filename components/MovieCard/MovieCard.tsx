@@ -5,8 +5,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { getAverageRatings } from 'shared/utils';
 import { Favorite } from '@styled-icons/material/Favorite';
 import { FavoriteBorder } from '@styled-icons/material/FavoriteBorder';
+import { useRouter } from 'next/router';
 
 const MovieCard = ({
+  id,
   title,
   ratings,
   year,
@@ -17,8 +19,14 @@ const MovieCard = ({
   contentRating,
   storyline,
 }: IMovie) => {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/moviedetails?id=${id}`);
+  };
+
   return (
-    <CardWrapper>
+    //! This should be passed as a props, since this is a dumb component
+    <CardWrapper onClick={handleClick}>
       {/* <CardActionArea> */}
       <CardMedia
         component="img"
@@ -46,7 +54,7 @@ const MovieCard = ({
           <Genres>{genres.join(', ')}</Genres>
           <Description>{storyline}</Description>
         </div>
-        <StyledFavoriteBorder size={22} />
+        {/* <StyledFavoriteBorder size={22} /> */}
       </Content>
     </CardWrapper>
   );
@@ -57,7 +65,7 @@ const CardWrapper = styled(Card)`
     background-color: #fafafa;
     transition: all 0.25s ease-in;
     max-height: 400px;
-    max-width: 350px;
+    max-width: 300px;
     display: flex;
     margin: 0 16px 16px 0;
   }

@@ -1,19 +1,38 @@
 import { NextPage } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
-const MovieDetails: NextPage<{ userAgent: string }> = ({ userAgent }) => (
-  <>
-    <h1>Movie Details</h1>
-    <p>{userAgent}</p>
-    <p>
-      Movie details - in this view will display more detailed information about the movie such as
-      plot, actos etc.
-    </p>
-  </>
-);
+interface Props {
+  movieState: MovieState;
+  query: ParsedUrlQuery;
+}
 
-MovieDetails.getInitialProps = async ({ req }) => {
-  const userAgent = req ? req.headers['user-agent'] || '' : navigator.userAgent;
-  return { userAgent };
+const MovieDetails: NextPage<Props> = ({ movieState, query }) => {
+  console.log('movieState', movieState);
+
+  console.log('', query.id.length);
+
+  if (query.id && query.id.length === 1) {
+    const movieData = movieState.data.find(movie => movie.id == parseInt(query.id[0]));
+    console.log('movieData', movieData);
+
+    return (
+      <>
+        <h1>Movie Details</h1>
+        <p>
+          Movie details - in this view will display more detailed information about the movie such
+          as plot, actos etc.
+        </p>
+      </>
+    );
+  }
+
+  return <h1>404: Page not found</h1>;
+};
+
+MovieDetails.getInitialProps = async ctx => {
+  const movieState = ctx.store.getState().movies;
+  const query = ctx.query || '';
+  return { movieState, query };
 };
 
 export default MovieDetails;
