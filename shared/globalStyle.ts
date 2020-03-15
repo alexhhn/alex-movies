@@ -15,7 +15,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     box-sizing: border-box;
   }
 
-
   *, *:before, *:after {
     box-sizing: inherit;
     margin-top: 0;

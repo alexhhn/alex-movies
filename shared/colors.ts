@@ -15,5 +15,5 @@ export const blue = {
 };
 
 export const red = {
-  dark: '#050449',
+  dark: '#CA4736',
 };

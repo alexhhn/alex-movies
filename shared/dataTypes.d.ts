@@ -1,5 +1,12 @@
+interface Category {
+  id: number;
+  name: string;
+  isSelected: boolean;
+}
+
 interface MovieState {
   data: IMovie[];
+  categories: Category[];
 }
 
 interface IMovie {
@@ -14,4 +21,5 @@ interface IMovie {
   actors: string[];
   duration: string;
   contentRating: string;
+  storyline: string;
 }

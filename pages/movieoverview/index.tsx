@@ -1,7 +1,13 @@
 import { NextPage } from 'next';
 import styled from 'styled-components';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CategoryFilter from 'components/CategoryFilter/CategoryFilter';
+import MovieList from 'components/MovieList/MovieList';
+import _union from 'lodash/union';
+import _keyBy from 'lodash/keyBy';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from 'redux/ducks/movieDuck';
+import { RootState } from 'redux/store';
 
 interface Props {
   custom: string;
@@ -9,18 +15,31 @@ interface Props {
 }
 
 const MovieOverview: NextPage<Props> = ({ movieState }) => {
-  console.log('movies :', movieState);
+  // console.log('movies :', movieState.data[0]);
+  // console.log('movies :', movieState.data[5]);
+
+  const dispatch = useDispatch();
+  const categories = useSelector((state: RootState) => state.movies.categories);
+
+  // Mutate redux, client-side
+  useEffect(() => {
+    dispatch(getCategories(movieState.data));
+  }, [movieState.data]);
+
   return (
     <Wrapper>
-      <h1>Movie Overview</h1>
-      <CategoryFilter />
-      {/* <MovieList movies={movies.data} /> */}
+      <CategoryFilter categories={categories} />
+      <MovieList movies={movieState.data} />
     </Wrapper>
   );
 };
+
 const Wrapper = styled.div`
   background-color: white;
-  width: 400px;
+  max-width: 1280px;
+  margin: auto;
+
+  /* width: 400px; */
 `;
 
 MovieOverview.getInitialProps = ctx => {

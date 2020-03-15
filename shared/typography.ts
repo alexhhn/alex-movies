@@ -7,7 +7,7 @@ export const typeScale = {
   header4: '1.2rem',
   header5: '1.1rem',
   paragraph: '1rem',
-  helperText: '1rem',
+  helperText: '1.2rem',
 };
 
 export const typeScaleMobile = {
@@ -17,5 +17,5 @@ export const typeScaleMobile = {
   header4: '1.2rem',
   header5: '1.1rem',
   paragraph: '1rem',
-  helperText: '1rem',
+  helperText: '1.2rem',
 };
