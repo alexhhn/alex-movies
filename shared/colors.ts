@@ -11,7 +11,7 @@ export const grey = {
 export const blue = {
   700: '#1976D2',
   500: '#2196F3',
-  50: '#E3F2F3',
+  50: '#E3F2FD',
 };
 
 export const red = {

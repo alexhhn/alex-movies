@@ -6,9 +6,9 @@ import MovieList from 'components/MovieList/MovieList';
 import _union from 'lodash/union';
 import _keyBy from 'lodash/keyBy';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from 'redux/ducks/movieDuck';
+import { getCategories, toggleCategory } from 'redux/ducks/movieDuck/movieDuck';
 import { RootState } from 'redux/store';
-
+import { movieHasCategory } from 'redux/ducks/movieDuck/movieUtils';
 interface Props {
   custom: string;
   movieState: MovieState;
@@ -20,16 +20,29 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
 
   const dispatch = useDispatch();
   const categories = useSelector((state: RootState) => state.movies.categories);
+  const selectedCategories = useSelector((state: RootState) => state.movies.selectedCategories);
 
   // Mutate redux, client-side
   useEffect(() => {
     dispatch(getCategories(movieState.data));
   }, [movieState.data]);
 
+  console.log('selectedCategories', selectedCategories);
+  console.log('movieState.data', movieState.data);
+
+  const filteredMovies =
+    selectedCategories.length > 0
+      ? movieState.data.filter(movie => movieHasCategory(movie, selectedCategories))
+      : movieState.data;
+
   return (
     <Wrapper>
-      <CategoryFilter categories={categories} />
-      <MovieList movies={movieState.data} />
+      <CategoryFilter
+        categories={categories}
+        onChipSelect={categoryId => dispatch(toggleCategory(categoryId))}
+      />
+
+      <MovieList movies={filteredMovies} />
     </Wrapper>
   );
 };
@@ -38,8 +51,6 @@ const Wrapper = styled.div`
   background-color: white;
   max-width: 1280px;
   margin: auto;
-
-  /* width: 400px; */
 `;
 
 MovieOverview.getInitialProps = ctx => {

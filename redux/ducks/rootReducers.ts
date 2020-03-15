@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import movieReducer, { initialState as movieState } from './movieDuck';
+import movieReducer, { initialState as movieState } from './movieDuck/movieDuck';
 
 export const initialState = {
   movies: movieState,

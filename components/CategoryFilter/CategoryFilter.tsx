@@ -1,6 +1,7 @@
 import Chip from '@material-ui/core/Chip';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import _orderBy from 'lodash/sortBy';
 
 interface ChipData {
   key: number;
@@ -9,22 +10,11 @@ interface ChipData {
 
 interface Props {
   categories: Category[];
+  onChipSelect: (categoryId: number) => {};
 }
 
-const CategoryFilter = ({ categories }: Props) => {
-  console.log('categories', categories);
-
-  const [chipData, setChipData] = useState<ChipData[]>([
-    { key: 0, label: 'Angular' },
-    { key: 1, label: 'jQuery' },
-    { key: 2, label: 'Polymer' },
-    { key: 3, label: 'React' },
-    { key: 4, label: 'Vue.js' },
-  ]);
-
-  const handleDelete = (chipToDelete: ChipData) => () => {
-    setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
-  };
+const CategoryFilter = ({ categories, onChipSelect }: Props) => {
+  const sortedCategories = _orderBy(categories, 'isSelected').reverse();
 
   if (categories.length > 0) {
     return (
@@ -36,6 +26,8 @@ const CategoryFilter = ({ categories }: Props) => {
             key={cat.id}
             label={cat.name}
             clickable
+            selected={false}
+            onClick={() => onChipSelect(cat.id)}
             // onDelete={data.label === 'React' ? undefined : handleDelete(data)}
           />
         ))}
@@ -50,9 +42,22 @@ const Wrapper = styled.div`
   width: 70%;
 `;
 
-const StyledChip = styled(Chip)`
+interface ChipProps {
+  selected: boolean;
+}
+
+const StyledChip = styled(Chip)<ChipProps>`
   &.MuiChip-root {
     margin: 0 4px 4px 0;
+    height: 48px;
+    border-radius: 100px;
+    color: ${props => props.selected && props.theme.chipColor};
+    background-color: ${props => props.selected && props.theme.chipBGColor};
+    min-width: 150px;
+    .MuiChip-label {
+      font-size: 20px;
+      padding: 12px 40px;
+    }
   }
 `;
 

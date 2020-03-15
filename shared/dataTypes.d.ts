@@ -7,6 +7,7 @@ interface Category {
 interface MovieState {
   data: IMovie[];
   categories: Category[];
+  selectedCategories: string[];
 }
 
 interface IMovie {

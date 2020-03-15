@@ -8,7 +8,8 @@ import { BASE_URL } from 'shared/constants';
 import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
 import { Store } from 'redux';
-import { fetchMovies, setMovies } from 'redux/ducks/movieDuck';
+import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
+import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 import { GlobalStyle } from 'shared/globalStyle';
 import { defaultTheme } from 'shared/theme';
 
