@@ -8,6 +8,7 @@ interface MovieState {
   data: IMovie[];
   categories: Category[];
   selectedCategories: string[];
+  sortBy: string;
 }
 
 interface IMovie {

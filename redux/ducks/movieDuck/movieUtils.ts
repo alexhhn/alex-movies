@@ -1,5 +1,8 @@
 import axios from 'axios';
 import utils from 'shared/utils';
+import _orderBy from 'lodash/orderBy';
+
+import { SortValuesIds } from 'shared/constants';
 
 export const fetchMovies = async () => {
   try {
@@ -30,4 +33,43 @@ export const movieHasCategory = (movie: IMovie, selectedCategories: string[]) =>
     }
   });
   return res;
+};
+
+export const getSortedMovies = (movies: IMovie[], sortByItemId: string) => {
+  let result;
+  switch (sortByItemId) {
+    case SortValuesIds.acsendingId:
+      result = _orderBy(movies, 'title', ['asc']);
+      break;
+    case SortValuesIds.descendingId:
+      result = _orderBy(movies, 'title', ['desc']);
+      break;
+    case SortValuesIds.ratingLowId:
+      result = _orderBy(movies, 'rating', ['asc']);
+      break;
+    case SortValuesIds.ratingHighId:
+      result = _orderBy(movies, 'rating', ['desc']);
+      break;
+    case SortValuesIds.imdbRatingLowId:
+      result = _orderBy(movies, 'imdbRating', ['asc']);
+      break;
+    case SortValuesIds.imdbRatingHighId:
+      result = _orderBy(movies, 'imdbRating', ['desc']);
+      break;
+    case SortValuesIds.durationLowId:
+      result = _orderBy(movies, 'duration', ['asc']);
+      break;
+    case SortValuesIds.durationHighId:
+      result = _orderBy(movies, 'duration', ['desc']);
+      break;
+    case SortValuesIds.yearLowId:
+      result = _orderBy(movies, 'year', ['asc']);
+      break;
+    case SortValuesIds.yearHighId:
+      result = _orderBy(movies, 'year', ['desc']);
+      break;
+    default:
+      result = movies;
+  }
+  return result;
 };

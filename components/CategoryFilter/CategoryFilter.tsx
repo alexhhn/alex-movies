@@ -1,7 +1,7 @@
 import Chip from '@material-ui/core/Chip';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import _orderBy from 'lodash/sortBy';
+import _sortBy from 'lodash/sortBy';
 
 interface ChipData {
   key: number;
@@ -14,19 +14,33 @@ interface Props {
 }
 
 const CategoryFilter = ({ categories, onChipSelect }: Props) => {
-  const sortedCategories = _orderBy(categories, 'isSelected').reverse();
+  const selectedCategories = categories.filter(cat => cat.isSelected);
+  const unSelectedCategories = categories.filter(cat => !cat.isSelected);
 
   if (categories.length > 0) {
     return (
       <Wrapper>
-        {categories.map(cat => (
+        {selectedCategories.map(cat => (
           // let icon;
 
           <StyledChip
             key={cat.id}
             label={cat.name}
             clickable
-            selected={false}
+            selected={cat.isSelected}
+            onClick={() => onChipSelect(cat.id)}
+            // onDelete={data.label === 'React' ? undefined : handleDelete(data)}
+          />
+        ))}
+
+        {unSelectedCategories.map(cat => (
+          // let icon;
+
+          <StyledChip
+            key={cat.id}
+            label={cat.name}
+            clickable
+            selected={cat.isSelected}
             onClick={() => onChipSelect(cat.id)}
             // onDelete={data.label === 'React' ? undefined : handleDelete(data)}
           />
@@ -58,6 +72,11 @@ const StyledChip = styled(Chip)<ChipProps>`
       font-size: 20px;
       padding: 12px 40px;
     }
+  }
+
+  &.MuiChip-clickable:hover {
+    background-color: ${props => props.selected && props.theme.chipBGColorHover};
+    color: ${props => props.selected && props.theme.interactionColor};
   }
 `;
 

@@ -6,34 +6,35 @@ import MovieList from 'components/MovieList/MovieList';
 import _union from 'lodash/union';
 import _keyBy from 'lodash/keyBy';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, toggleCategory } from 'redux/ducks/movieDuck/movieDuck';
+import { getCategories, toggleCategory, setSortby } from 'redux/ducks/movieDuck/movieDuck';
 import { RootState } from 'redux/store';
-import { movieHasCategory } from 'redux/ducks/movieDuck/movieUtils';
+import { movieHasCategory, getSortedMovies } from 'redux/ducks/movieDuck/movieUtils';
+import SortFilter from 'components/SortFilter/SortFilter';
+import _orderBy from 'lodash/orderBy';
+
 interface Props {
   custom: string;
   movieState: MovieState;
 }
 
 const MovieOverview: NextPage<Props> = ({ movieState }) => {
-  // console.log('movies :', movieState.data[0]);
-  // console.log('movies :', movieState.data[5]);
-
   const dispatch = useDispatch();
   const categories = useSelector((state: RootState) => state.movies.categories);
   const selectedCategories = useSelector((state: RootState) => state.movies.selectedCategories);
+  const sortByItem = useSelector((state: RootState) => state.movies.sortBy);
 
   // Mutate redux, client-side
   useEffect(() => {
     dispatch(getCategories(movieState.data));
   }, [movieState.data]);
 
-  console.log('selectedCategories', selectedCategories);
-  console.log('movieState.data', movieState.data);
-
   const filteredMovies =
     selectedCategories.length > 0
       ? movieState.data.filter(movie => movieHasCategory(movie, selectedCategories))
       : movieState.data;
+
+  const sortedMovies =
+    sortByItem.length > 0 ? getSortedMovies(filteredMovies, sortByItem) : filteredMovies;
 
   return (
     <Wrapper>
@@ -41,8 +42,8 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
         categories={categories}
         onChipSelect={categoryId => dispatch(toggleCategory(categoryId))}
       />
-
-      <MovieList movies={filteredMovies} />
+      <SortFilter onSortItemSelect={sortItemId => dispatch(setSortby(sortItemId))} />
+      <MovieList movies={sortedMovies} />
     </Wrapper>
   );
 };
