@@ -11,6 +11,7 @@ import { RootState } from 'redux/store';
 import { movieHasCategory, getSortedMovies } from 'redux/ducks/movieDuck/movieUtils';
 import SortFilter from 'components/SortFilter/SortFilter';
 import _orderBy from 'lodash/orderBy';
+import Logo from 'public/images/logo.png';
 
 interface Props {
   custom: string;
@@ -38,11 +39,17 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
 
   return (
     <Wrapper>
-      <CategoryFilter
-        categories={categories}
-        onChipSelect={categoryId => dispatch(toggleCategory(categoryId))}
-      />
-      <SortFilter onSortItemSelect={sortItemId => dispatch(setSortby(sortItemId))} />
+      <LogoView>
+        <img src={Logo} />
+        <p>REAL RATINGS</p>
+      </LogoView>
+      {/* <FilterView>
+        <CategoryFilter
+          categories={categories}
+          onChipSelect={categoryId => dispatch(toggleCategory(categoryId))}
+        />
+        <SortFilter onSortItemSelect={sortItemId => dispatch(setSortby(sortItemId))} />
+      </FilterView> */}
       <MovieList movies={sortedMovies} />
     </Wrapper>
   );
@@ -52,6 +59,25 @@ const Wrapper = styled.div`
   background-color: white;
   max-width: 1280px;
   margin: auto;
+`;
+
+const LogoView = styled.div`
+  display: flex;
+  img {
+    width: 80px;
+    object-fit: contain;
+  }
+  align-items: flex-end;
+
+  p {
+    margin: 0 0 -2px 5px;
+    font-size: 16px;
+  }
+`;
+
+const FilterView = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 MovieOverview.getInitialProps = ctx => {

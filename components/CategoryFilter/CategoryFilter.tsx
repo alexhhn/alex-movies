@@ -3,11 +3,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import _sortBy from 'lodash/sortBy';
 
-interface ChipData {
-  key: number;
-  label: string;
-}
-
 interface Props {
   categories: Category[];
   onChipSelect: (categoryId: number) => {};
@@ -53,7 +48,8 @@ const CategoryFilter = ({ categories, onChipSelect }: Props) => {
 };
 
 const Wrapper = styled.div`
-  width: 70%;
+  /* width: 80%; */
+  margin-top: 32px;
 `;
 
 interface ChipProps {
@@ -63,14 +59,14 @@ interface ChipProps {
 const StyledChip = styled(Chip)<ChipProps>`
   &.MuiChip-root {
     margin: 0 4px 4px 0;
-    height: 48px;
+    height: 32px;
     border-radius: 100px;
     color: ${props => props.selected && props.theme.chipColor};
     background-color: ${props => props.selected && props.theme.chipBGColor};
-    min-width: 150px;
+    min-width: 120px;
     .MuiChip-label {
-      font-size: 20px;
-      padding: 12px 40px;
+      font-size: 16px;
+      padding: 8px 32px;
     }
   }
 

@@ -22,7 +22,7 @@ export const SortFilter = ({ onSortItemSelect }: Props) => {
   }, [value]);
 
   return (
-    <>
+    <Wrapper>
       <strong>Sortby</strong>
       <StyledSelect displayEmpty value={value} onChange={handleChange}>
         <MenuItem value="None">
@@ -36,12 +36,17 @@ export const SortFilter = ({ onSortItemSelect }: Props) => {
           );
         })}
       </StyledSelect>
-    </>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const StyledSelect = styled(Select)`
-  width: 300px;
-  height: 100px;
+  width: 100px;
+  height: 50px;
 `;
 export default SortFilter;

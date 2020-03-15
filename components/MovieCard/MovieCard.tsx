@@ -6,6 +6,7 @@ import { getAverageRatings } from 'shared/utils';
 import { Favorite } from '@styled-icons/material/Favorite';
 import { FavoriteBorder } from '@styled-icons/material/FavoriteBorder';
 import { useRouter } from 'next/router';
+import devices from 'shared/media';
 
 const MovieCard = ({
   id,
@@ -36,25 +37,23 @@ const MovieCard = ({
         title="Contemplative Reptile"
       />
       <Content>
-        <div>
-          <h2>{title}</h2>
-          <Stats>
-            <div>
-              <Score>
-                <strong>{getAverageRatings(ratings)}</strong>
-              </Score>
-              <pre>IMDB {imdbRating}</pre>
-            </div>
-            <Meta>
-              <pre>{year}</pre>
-              <Duration>{duration}</Duration>
-              <ContentRating>{contentRating}</ContentRating>
-            </Meta>
-          </Stats>
-          <Genres>{genres.join(', ')}</Genres>
-          <Description>{storyline}</Description>
-        </div>
-        {/* <StyledFavoriteBorder size={22} /> */}
+        <h2>{title}</h2>
+        <Stats>
+          <div>
+            <Score>
+              <strong>{getAverageRatings(ratings)}</strong>
+            </Score>
+            <pre>IMDB {imdbRating}</pre>
+          </div>
+          <Meta>
+            <pre>{year}</pre>
+            <Duration>{duration}</Duration>
+            <ContentRating>{contentRating}</ContentRating>
+          </Meta>
+        </Stats>
+        <Genres>{genres.join(', ')}</Genres>
+        <Description>{storyline}</Description>
+        <FavoriteBorder size={22} />
       </Content>
     </CardWrapper>
   );
@@ -64,15 +63,13 @@ const CardWrapper = styled(Card)`
   &.MuiPaper-root {
     background-color: #fafafa;
     transition: all 0.25s ease-in;
-    max-height: 400px;
-    max-width: 300px;
     display: flex;
-    margin: 0 16px 16px 0;
+    height: 100%;
   }
 
   > .MuiCardMedia-root {
-    height: 100%;
-    max-width: 135px;
+    height: initial;
+    width: 40%;
   }
 
   cursor: pointer;
@@ -82,15 +79,10 @@ const CardWrapper = styled(Card)`
   }
 `;
 
-const StyledFavoriteBorder = styled(FavoriteBorder)`
-  align-self: flex-end;
-  color: ${props => props.theme.favoriteColor};
-`;
-
 const Stats = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 24px 0;
+  margin: 12px 0 24px;
 
   pre {
     margin: 0;
@@ -112,16 +104,30 @@ const Content = styled(CardContent)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
   }
   padding: 0 12px 12px;
+
+  svg {
+    display: flex;
+    align-self: flex-end;
+    color: ${props => props.theme.favoriteColor};
+    min-width: 22px;
+    min-height: 22px;
+  }
 `;
 
 const Description = styled.p`
   font-size: 14px;
+  max-height: 100px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   overflow: hidden;
+
+  @media ${devices.mobileOnly} {
+    display: none;
+  }
 `;
 
 const Score = styled.div`
