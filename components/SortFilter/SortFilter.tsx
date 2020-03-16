@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { sortValues, sortValuesIds } from 'shared/constants';
 import devices from 'shared/media';
+import { typeScaleMobile, typeScale } from 'shared/typography';
 
 interface Props {
   onSortItemSelect: (sortItemId: string) => {};
@@ -46,7 +47,7 @@ const Wrapper = styled.div`
     margin-top: 18px;
     strong {
       text-align: end;
-      font-size: 14px;
+      font-size: ${typeScaleMobile.label};
       margin-right: 2px;
     }
   }
@@ -55,17 +56,18 @@ const Wrapper = styled.div`
 const StyledSelect = styled(Select)`
   margin-top: 6px;
   height: 40px;
+
   .MuiInputBase-input {
-    font-size: 16px;
+    font-size: ${typeScale.paragraph};
   }
   .MuiSvgIcon-root {
-    fill: blue;
+    fill: ${props => props.theme.interactionColor};
     width: 26px;
     height: 26px;
   }
 
   &.MuiInput-underline::before {
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid ${props => props.theme.interactionColor};
   }
 
   .MuiSelect-selectMenu {
@@ -77,7 +79,7 @@ const StyledSelect = styled(Select)`
     max-width: 180px;
     align-self: flex-end;
     .MuiInputBase-input {
-      font-size: 12px;
+      font-size: ${typeScaleMobile.helperText};
     }
     .MuiSvgIcon-root {
       width: 16px;

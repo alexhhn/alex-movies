@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import devices from 'shared/media';
 
 const CardWrapper = styled(Card)`
   &.MuiPaper-root {
@@ -12,7 +13,12 @@ const CardWrapper = styled(Card)`
 
   > .MuiCardMedia-root {
     height: initial;
-    max-height: 100%;
+
+    @media ${devices.mobileOnly} {
+      height: 100%;
+      max-height: 250px;
+    }
+
     width: 40%;
   }
 

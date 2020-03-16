@@ -6,13 +6,13 @@ const sizes = {
 };
 
 const devices = {
-  mobile: `(min-width: ${sizes.mobile})`,
+  notMobile: `(min-width: ${sizes.mobile})`,
   mobileOnly: `(max-width: ${sizes.mobile})`,
-  tablet: `(min-width: ${sizes.tablet})`,
+  notTablet: `(min-width: ${sizes.tablet})`,
   tabletOnly: `(max-width: ${sizes.tablet})`,
-  laptop: `(min-width: ${sizes.laptop})`,
+  notLaptop: `(min-width: ${sizes.laptop})`,
   laptopOnly: `(max-width: ${sizes.laptop})`,
-  desktop: `(min-width: ${sizes.desktop})`,
+  notDesktop: `(min-width: ${sizes.desktop})`,
   desktopOnly: `(max-width: ${sizes.desktop})`,
 };
 

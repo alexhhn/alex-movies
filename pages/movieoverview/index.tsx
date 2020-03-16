@@ -22,6 +22,7 @@ import { setShowFavorite, removeShowFavorite } from 'redux/ducks/userDuck/userDu
 import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
 import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 import _difference from 'lodash/difference';
+import { typeScale } from 'shared/typography';
 interface Props {
   movieState: MovieState;
 }
@@ -87,7 +88,6 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
 };
 
 const Wrapper = styled.div`
-  background-color: white;
   max-width: 1280px;
   margin: auto;
   padding: 24px;
@@ -103,7 +103,7 @@ const LogoView = styled.div`
 
   h1 {
     margin: 0 0 -2px 5px;
-    font-size: 16px;
+    font-size: ${typeScale.paragraph};
     font-weight: normal;
   }
 `;

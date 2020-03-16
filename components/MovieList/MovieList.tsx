@@ -4,6 +4,7 @@ import devices from 'shared/media';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { useRouter } from 'next/router';
+import { typeScale } from 'shared/typography';
 
 interface Props {
   movies: IMovie[];
@@ -46,7 +47,7 @@ const MovieList = ({ movies, onClearSelection }: Props) => {
 
 const NoMovieView = styled.div`
   margin-top: 40px;
-  font-size: 20px;
+  font-size: ${typeScale.header2};
 `;
 
 const Wrapper = styled.div`

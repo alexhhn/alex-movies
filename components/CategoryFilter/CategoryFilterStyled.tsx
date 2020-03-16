@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import devices from 'shared/media';
 import Chip from '@material-ui/core/Chip';
+import { typeScale, typeScaleMobile } from 'shared/typography';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -37,7 +38,7 @@ export const StyledChip = styled(Chip)<ChipProps>`
     color: ${props => props.selected && props.theme.chipColor};
     background-color: ${props => props.selected && props.theme.chipBGColor};
     min-width: 120px;
-    font-size: 16px;
+    font-size: ${typeScale.helperText};
 
     flex: 1;
 
@@ -47,7 +48,7 @@ export const StyledChip = styled(Chip)<ChipProps>`
       min-width: 120px;
 
       .MuiChip-label {
-        font-size: 16px;
+        font-size: ${typeScale.helperText};
         padding: 8px 32px;
       }
     }
@@ -58,7 +59,7 @@ export const StyledChip = styled(Chip)<ChipProps>`
       padding: 2px 4px;
       min-width: 100px;
       .MuiChip-label {
-        font-size: 12px;
+        font-size: ${typeScaleMobile.helperText};
         padding: 8px;
       }
     }

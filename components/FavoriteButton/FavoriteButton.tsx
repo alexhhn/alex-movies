@@ -52,12 +52,12 @@ const Wrapper = styled.div<WrapperProps>`
       min-width: ${props => (props.large ? '32px' : '22px')};
       min-height: ${props => (props.large ? '32px' : '22px')};
     }
+  }
 
-    &:hover {
-      transform: scale(1.25);
-      svg {
-        fill: darkred;
-      }
+  &:hover {
+    transform: scale(1.25);
+    svg {
+      color: ${props => props.theme.favoriteColorHover};
     }
   }
 `;

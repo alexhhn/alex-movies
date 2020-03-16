@@ -17,4 +17,5 @@ export const blue = {
 
 export const red = {
   dark: '#CA4736',
+  darker: 'darkred',
 };

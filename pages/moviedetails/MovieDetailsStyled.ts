@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import devices from 'shared/media';
+import { typeScale } from 'shared/typography';
 
 const Wrapper = styled.div`
   display: flex;
 
-  @media ${devices.tabletOnly} {
+  @media ${devices.mobileOnly} {
     flex-direction: column;
   }
 `;
@@ -42,10 +43,12 @@ export const TitleRow = styled.div`
 `;
 
 export const BackButton = styled.a`
-  font-size: 14px;
+  font-size: ${typeScale.helperText};
   margin-bottom: 32px;
   cursor: pointer;
-  color: blue;
+  color: ${props => props.theme.interactionColor};
+  padding-right: 20px;
+  width: max-content;
 
   span {
     border: solid black;
@@ -58,6 +61,11 @@ export const BackButton = styled.a`
 
   &:hover {
     text-decoration: underline;
+
+    span {
+      border: solid ${props => props.theme.interactionColor};
+      border-width: 0 3px 3px 0;
+    }
   }
 
   @media ${devices.mobileOnly} {
@@ -89,13 +97,13 @@ export const Poster = styled.div`
     width: 40%;
   }
 
-  @media ${devices.tabletOnly} {
+  @media ${devices.mobileOnly} {
     display: none;
   }
 `;
 
 export const PosterMobile = styled.div`
-  @media ${devices.tablet} {
+  @media ${devices.notMobile} {
     display: none;
   }
 

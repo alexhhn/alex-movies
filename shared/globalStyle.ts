@@ -21,6 +21,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     font-family: ${primaryFont};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    //* Default all font size to be 1rem, normally 16px
     font-size: 1rem;
     color: ${props => props.theme.textColor} ;
   }
