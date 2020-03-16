@@ -1,4 +1,3 @@
-import { Action } from '../../redux-types';
 import _union from 'lodash/union';
 import _reduce from 'lodash/reduce';
 

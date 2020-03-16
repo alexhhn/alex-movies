@@ -1,38 +1,44 @@
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { fetchMovieById } from 'redux/ducks/movieDetailDuck/movieDetailUtils';
+import { setMovieDetail } from 'redux/ducks/movieDetailDuck/movieDetailDuck';
 
 interface Props {
-  movieState: MovieState;
-  query: ParsedUrlQuery;
+  movieDetailState: MovieDetailState;
 }
 
-const MovieDetails: NextPage<Props> = ({ movieState, query }) => {
-  console.log('movieState', movieState);
+const MovieDetails: NextPage<Props> = ({ movieDetailState }) => {
+  console.log('movieDetailState', movieDetailState);
 
-  console.log('', query.id.length);
-
-  if (query.id && query.id.length === 1) {
-    const movieData = movieState.data.find(movie => movie.id == parseInt(query.id[0]));
-    console.log('movieData', movieData);
-
-    return (
-      <>
-        <h1>Movie Details</h1>
-        <p>
-          Movie details - in this view will display more detailed information about the movie such
-          as plot, actos etc.
-        </p>
-      </>
-    );
+  const data = movieDetailState.data;
+  if (!data) {
+    return <h1>404: Page not found</h1>;
   }
 
-  return <h1>404: Page not found</h1>;
+  return (
+    <>
+      <h1>{data.title}</h1>
+      <p>{data.storyline}</p>
+      <img src={data.posterurl} alt="poster" />
+    </>
+  );
 };
 
 MovieDetails.getInitialProps = async ctx => {
+  // * A Query can be a string or an array of strings.
+  const movieIdFromQuery = typeof ctx.query.id == 'string' ? ctx.query.id : ctx.query.id[0];
+
+  let movieDetailState;
   const movieState = ctx.store.getState().movies;
-  const query = ctx.query || '';
-  return { movieState, query };
+  // * We dont need to fetch data for a single movie if this page is redirected from movie overview (homepage), only when the page is loaded by a URL. This helps optimizing the pageload speed.
+  if (movieState.data.length === 0) {
+    const movieDataFromServer = await fetchMovieById(movieIdFromQuery);
+    ctx.store.dispatch(setMovieDetail(movieDataFromServer));
+    movieDetailState = ctx.store.getState().movieDetail;
+  } else {
+    movieDetailState = movieState.data[movieIdFromQuery];
+  }
+  return { movieDetailState };
 };
 
 export default MovieDetails;

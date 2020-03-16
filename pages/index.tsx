@@ -1,15 +1,13 @@
 import { NextPage } from 'next';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-const Home: NextPage<{ userAgent: string }> = ({ userAgent }) => (
-  <h1>
-    Hello world! - user agent:
-    {userAgent}
-  </h1>
-);
-
-Home.getInitialProps = async ({ req }) => {
-  const userAgent = req ? req.headers['user-agent'] || '' : navigator.userAgent;
-  return { userAgent };
+const Home: NextPage = () => {
+  const router = useRouter();
+  useEffect(() => {
+    router.push('/movieoverview');
+  }, []);
+  return <h1>Getting the best movies just for you...</h1>;
 };
 
 export default Home;

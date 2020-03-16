@@ -13,6 +13,9 @@ import SortFilter from 'components/SortFilter/SortFilter';
 import _orderBy from 'lodash/orderBy';
 import Logo from 'public/images/logo.png';
 import devices from 'shared/media';
+import { setShowFavorite } from 'redux/ducks/userDuck/userDuck';
+import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
+import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 
 interface Props {
   custom: string;
@@ -48,6 +51,7 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
         <CategoryFilter
           categories={categories}
           onChipSelect={categoryId => dispatch(toggleCategory(categoryId))}
+          onFavoriteChipSelect={() => dispatch(setShowFavorite())}
         />
         <SortFilter onSortItemSelect={sortItemId => dispatch(setSortby(sortItemId))} />
       </FilterView>
@@ -86,24 +90,13 @@ const FilterView = styled.div`
   }
 `;
 
-MovieOverview.getInitialProps = ctx => {
-  // Get movies reducer - serverside
+MovieOverview.getInitialProps = async ctx => {
+  // Fetch Movies, server side
+  const moviesFromServer = await fetchMovies();
+  ctx.store.dispatch(setMovies(moviesFromServer));
   const movieState = ctx.store.getState().movies;
 
   return { movieState, custom: 'custom' };
 };
 
 export default MovieOverview;
-
-/* <p>
-{' '}
-In this view you will display the movie title, poster image, year and rating Listing of
-movie overview elements
-</p>
-<li>
-A user should be able to sort this list based on the data displayed in the overview element.
-</li>
-<li>
-A user should be able to favorite a movie and filter the list so that only favorites are
-displayed
-</li> */

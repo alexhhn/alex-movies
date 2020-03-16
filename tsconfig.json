@@ -18,7 +18,7 @@
   "exclude": ["node_modules"],
   "include": [
     "next-env.d.ts",
-    "shared/dataTypes.d.ts",
+    "shared/globalTypes.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",

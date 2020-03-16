@@ -57,5 +57,10 @@
     "singleQuote": true,
     "trailingComma": "all",
     "printWidth": 100
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 9"
+  ]
 }

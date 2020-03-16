@@ -8,8 +8,6 @@ import { BASE_URL } from 'shared/constants';
 import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
 import { Store } from 'redux';
-import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
-import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 import { GlobalStyle } from 'shared/globalStyle';
 import { defaultTheme } from 'shared/theme';
 
@@ -25,11 +23,7 @@ class MyApp extends App<Props> {
     if (jssStyles && jssStyles.parentNode) jssStyles.parentNode.removeChild(jssStyles);
   }
 
-  // Fetch Movie, server side
   static async getInitialProps({ Component, ctx }: AppContext) {
-    const moviesFromServer = await fetchMovies();
-    ctx.store.dispatch(setMovies(moviesFromServer));
-
     return {
       pageProps: Component.getInitialProps ? await Component.getInitialProps(ctx) : {},
     };

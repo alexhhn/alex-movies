@@ -11,6 +11,15 @@ interface MovieState {
   sortBy: string;
 }
 
+interface MovieDetailState {
+  data: IMovie | undefined;
+}
+
+interface UserState {
+  favorites: number[];
+  showFavorites: boolean;
+}
+
 interface IMovie {
   id: number;
   title: string;
@@ -24,4 +33,9 @@ interface IMovie {
   duration: string;
   contentRating: string;
   storyline: string;
+}
+
+interface Action {
+  type: string;
+  payload: any;
 }
