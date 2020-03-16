@@ -12,6 +12,7 @@ const CardWrapper = styled(Card)`
 
   > .MuiCardMedia-root {
     height: initial;
+    max-height: 100%;
     width: 40%;
   }
 
