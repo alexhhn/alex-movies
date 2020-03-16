@@ -24,7 +24,7 @@ export const Score = styled.div<Props>`
 
 export const Description = styled.p<Props>`
   font-size: ${props => (props.large ? '18px' : '14px')};
-  max-height: 100px;
+  ${props => !props.large && 'max-height: 100px'};
   color: ${grey.dark};
   display: -webkit-box;
   -webkit-box-orient: vertical;

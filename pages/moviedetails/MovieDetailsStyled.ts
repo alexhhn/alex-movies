@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
 `;
+
+export default Wrapper;
 
 export const ScoreView = styled.div`
   display: flex;
@@ -30,7 +32,7 @@ export const TitleRow = styled.div`
 `;
 
 export const BackButton = styled.a`
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 32px;
   cursor: pointer;
   color: blue;

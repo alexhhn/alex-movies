@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { Done } from '@styled-icons/material/Done';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Wrapper, ClickableSpan, StyledChip, CategorySelection } from './CategoryFilterStyled';
+import Wrapper, { ClickableSpan, StyledChip, CategorySelection } from './CategoryFilterStyled';
 
 interface Props {
   categories: Category[];

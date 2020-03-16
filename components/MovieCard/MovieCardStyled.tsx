@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
-export const CardWrapper = styled(Card)`
+const CardWrapper = styled(Card)`
   &.MuiPaper-root {
     background-color: #fafafa;
     transition: all 0.25s ease-in;
@@ -22,28 +22,7 @@ export const CardWrapper = styled(Card)`
   }
 `;
 
-const FavoriteButtonArea = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-self: flex-end;
-  width: min-content;
-  padding: 8px;
-  margin-right: -8px;
-  transition: all 0.25s ease-in-out;
-
-  svg {
-    color: ${props => props.theme.favoriteColor};
-    min-width: 22px;
-    min-height: 22px;
-  }
-
-  &:hover {
-    transform: scale(1.25);
-    svg {
-      fill: darkred;
-    }
-  }
-`;
+export default CardWrapper;
 
 export const Content = styled(CardContent)`
   &.MuiCardContent-root {

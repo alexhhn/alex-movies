@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
 import { useRouter } from 'next/router';
-import { Wrapper, Poster, Content, BackButton, TitleRow, ScoreView } from './MovieDetailsStyled';
+import Wrapper, { Poster, Content, BackButton, TitleRow, ScoreView } from './MovieDetailsStyled';
 
 interface Props {
   movieDetailData: IMovie;

@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import devices from 'shared/media';
 import Chip from '@material-ui/core/Chip';
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
 `;
+
+export default Wrapper;
 
 export const ClickableSpan = styled.span`
   min-width: 120px;

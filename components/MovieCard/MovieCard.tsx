@@ -13,7 +13,7 @@ import {
   Year,
 } from 'shared/styledMovieInfo';
 import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
-import { CardWrapper, Content, Meta } from './MovieCardStyled';
+import Wrapper, { Content, Meta } from './MovieCardStyled';
 
 interface Props {
   movieData: IMovie;
@@ -36,7 +36,7 @@ const MovieCard = ({ movieData, isFavorite, handleClick }: Props) => {
   } = movieData;
 
   return (
-    <CardWrapper onClick={() => handleClick(id)}>
+    <Wrapper onClick={() => handleClick(id)}>
       <CardMedia
         component="img"
         alt="Contemplative Reptile"
@@ -67,7 +67,7 @@ const MovieCard = ({ movieData, isFavorite, handleClick }: Props) => {
         <Description>{storyline}</Description>
         <FavoriteButton id={id} isFavorite={isFavorite} />
       </Content>
-    </CardWrapper>
+    </Wrapper>
   );
 };
 
