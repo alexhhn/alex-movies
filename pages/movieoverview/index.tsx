@@ -27,6 +27,10 @@ interface Props {
   movieState: MovieState;
 }
 
+/**
+ * @summary The current Home-page. Redirected from `pages/index.tsx`
+ * @parameter movieState: Movies data fetched server-side into redux state.
+ */
 const MovieOverview: NextPage<Props> = ({ movieState }) => {
   const dispatch = useDispatch();
   const categories = useSelector((state: RootState) => state.movies.categories);
@@ -35,7 +39,7 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
   const showFavorites = useSelector((state: RootState) => state.user.showFavorites);
   const favorites = useSelector((state: RootState) => state.user.favorites);
 
-  // Mutate redux, client-side
+  //* Mutate redux, client-side
   useEffect(() => {
     dispatch(getCategories(movieState.data));
   }, [movieState.data]);
@@ -119,7 +123,7 @@ const FilterView = styled.div`
 `;
 
 MovieOverview.getInitialProps = async ctx => {
-  // Fetch Movies, server side
+  //* Fetch Movies, server-side
   const moviesFromServer = await fetchMovies();
   ctx.store.dispatch(setMovies(moviesFromServer));
   const movieState = ctx.store.getState().movies;

@@ -1,7 +1,6 @@
 import _union from 'lodash/union';
 import _reduce from 'lodash/reduce';
 
-// Actions
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const TOGGLE_CATEGORY = 'TOGGLE_CATEGORY';
@@ -24,7 +23,7 @@ export default function MovieReducer(state = initialState, action: Action): Movi
     case SET_SORTBY:
       return { ...state, sortBy: action.payload };
     case TOGGLE_CATEGORY:
-      // * We want to avoid mutating state. In order to toggle a category, we find the categoryId, then toggle the selected boolean value and update the selected categoriesname for filtering on MovieOverview page
+      // * We want to avoid mutating state. In order to toggle a category, we first find the selected category, toggle its selected boolean-value in categories and then update state.selectedCategories
       const categoryId = action.payload;
       const selectedCategory = state.categories.find(cat => cat.id === categoryId);
 
@@ -58,7 +57,7 @@ export default function MovieReducer(state = initialState, action: Action): Movi
   }
 }
 
-// Actions
+//* Actions creators
 export const setMovies = (payload: IMovie[]) => ({
   type: SET_MOVIES,
   payload,

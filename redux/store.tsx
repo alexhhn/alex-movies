@@ -5,9 +5,7 @@ import reducers, { initialState } from './ducks/rootReducers';
 
 const dev: boolean = process.env.NODE_ENV !== 'production';
 
-const { composeWithDevTools } = dev
-  ? require('redux-devtools-extension')
-  : require('redux-devtools-extension/logOnlyInProduction');
+const { composeWithDevTools } = require('redux-devtools-extension');
 
 export type RootState = ReturnType<typeof reducers>;
 
@@ -19,7 +17,9 @@ export type Store = ReduxStore<RootState>;
 
 const makeStore: MakeStore = (state = initialState): Store => {
   const middlewares = [thunkMiddleware];
-  const compose = composeWithDevTools(applyMiddleware(...middlewares));
+  const compose = dev
+    ? composeWithDevTools(applyMiddleware(...middlewares))
+    : applyMiddleware(...middlewares);
   return createStore(reducers, state, compose);
 };
 

@@ -30,6 +30,10 @@ interface Props {
   movieDetailData: IMovie;
 }
 
+/**
+ * @summary This page show details of a single movie.
+ * @parameter movieDetailData: The movie data from redux
+ */
 const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
   if (!movieDetailData) {
     return <h1>404: Page not found</h1>;

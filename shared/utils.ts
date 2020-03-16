@@ -13,8 +13,11 @@ export const convertPlayTime = (playtime?: string) => {
   }
 };
 
-// * Get a higher resolution image.
-// ? This image should be provided from back-end. This ugly solution just translate from url after observing its pattern.
+/**
+ * Get a higher resolution image.
+ * @remark This image should be provided from back-end. This ugly solution just translate from url after observing its pattern.
+ * @return a higher resolution imageUrl.
+ */
 export const getScaledImageUrl = (imgUrl: string, scaleFactor: number) => {
   const frameSizeStr = imgUrl.substring(imgUrl.indexOf('_AL_') - 7, imgUrl.indexOf('_AL_'));
   const imgSizeStr = imgUrl.substring(imgUrl.indexOf('_SY') + 3, imgUrl.indexOf('_SY') + 6);

@@ -8,7 +8,7 @@ export const fetchMovies = async () => {
   try {
     const res = await axios.get('/data');
     // Translate data to readable fields
-    // It *might* be better to get these field from back-end
+    // ? It *might* be better to get these field from back-end
     const data = res.data.map((element: IMovie) => {
       return {
         ...element,

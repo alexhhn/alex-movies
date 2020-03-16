@@ -13,7 +13,7 @@ export default function MovieDetailReducer(state = initialState, action: Action)
   }
 }
 
-// Actions
+//* Actions creators
 export const setMovieDetail = (payload: IMovie) => ({
   type: SET_MOVIE_DETAIL,
   payload,

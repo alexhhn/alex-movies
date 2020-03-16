@@ -29,7 +29,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   h1 {
     font-size: ${typeScale.header1};
     font-weight: 300;
-
   }
 
   h2 { 
@@ -40,7 +39,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     h1 {
       font-size: ${typeScaleMobile.header1};
       font-weight: 300;
-  
     }
    }
 
@@ -51,7 +49,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   pre {
     font-family: ${primaryFont};
     font-size: ${typeScale.helperText}
-
   }
 
   button {

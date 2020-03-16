@@ -1,10 +1,15 @@
-// https://medium.com/manato/ssr-with-next-js-styled-components-and-material-ui-b1e88ac11dfa
+
 
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles';
 
+/**
+ * Override `document.js` of `nextjs`.
+ * @summary Customize font, server-side stylesheets 
+ * @reference https://medium.com/manato/ssr-with-next-js-styled-components-and-material-ui-b1e88ac11dfa
+ */
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const styledComponentSheet = new ServerStyleSheet();
@@ -16,7 +21,6 @@ export default class MyDocument extends Document {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: App => props =>
-            // https://spectrum.chat/next-js/general/ssr-global-styles-with-styled-components-v4~605fa241-b194-4c6b-b071-1816fb96074b
             styledComponentSheet.collectStyles(
               materialUiSheets.collect(
                   <App {...props} />
