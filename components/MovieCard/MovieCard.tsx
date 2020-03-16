@@ -51,7 +51,7 @@ const MovieCard = ({ movieData, isFavorite, handleClick }: Props) => {
             <Score>
               <strong>{getAverageRatings(ratings)}</strong>
             </Score>
-            <IMDBRating>IMDB {imdbRating}</IMDBRating>
+            {imdbRating && <IMDBRating>IMDB {imdbRating}</IMDBRating>}
           </div>
           <Meta>
             <Year>{year}</Year>

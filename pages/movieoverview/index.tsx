@@ -58,8 +58,6 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
     moviesToRendered = moviesToRendered.filter(movie => favorites.includes(movie.id));
   }
 
-  console.log('moviesToRendered :', moviesToRendered);
-
   const onClearSelection = () => {
     dispatch(resetCategories());
     dispatch(removeShowFavorite());

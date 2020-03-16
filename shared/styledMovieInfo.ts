@@ -9,6 +9,12 @@ interface Props {
 export const Score = styled.div<Props>`
   width: ${props => (props.large ? '100px' : '38px')};
   height: ${props => (props.large ? '100px' : '38px')};
+
+  @media ${devices.mobileOnly} {
+    width: ${props => (props.large ? '50px' : '38px')};
+    height: ${props => (props.large ? '50px' : '38px')};
+  }
+
   border: 1px solid #d2d2d2;
   border-radius: ${props => (props.large ? '0' : '50%')};
   display: flex;
@@ -19,6 +25,10 @@ export const Score = styled.div<Props>`
   strong {
     margin: 0;
     font-size: ${props => (props.large ? '42px' : '16px')};
+
+    @media ${devices.mobileOnly} {
+      font-size: ${props => (props.large ? '22px' : '14px')};
+    }
   }
 `;
 
@@ -51,6 +61,10 @@ export const Stats = styled.div<Props>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  @media ${devices.mobileOnly} {
+    margin: ${props => (props.large ? '12px 0 32px' : '12px 0 24px')};
   }
 `;
 

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { fetchMovieById } from 'redux/ducks/movieDetailDuck/movieDetailUtils';
 import { setMovieDetail } from 'redux/ducks/movieDetailDuck/movieDetailDuck';
-import { getAverageRatings } from 'shared/utils';
+import { getAverageRatings, getScaledImageUrl } from 'shared/utils';
 import {
   Genres,
   Description,
@@ -17,7 +17,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
 import { useRouter } from 'next/router';
-import Wrapper, { Poster, Content, BackButton, TitleRow, ScoreView } from './MovieDetailsStyled';
+import Wrapper, {
+  Poster,
+  Content,
+  BackButton,
+  TitleRow,
+  ScoreView,
+  PosterMobile,
+} from './MovieDetailsStyled';
 
 interface Props {
   movieDetailData: IMovie;
@@ -46,11 +53,17 @@ const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
   const isFavorite = favorites.includes(id) ? true : false;
   const router = useRouter();
 
+  const scaledUrl = getScaledImageUrl(posterurl, 3);
+  console.log('scaledUrl :', scaledUrl);
+
   return (
     <Wrapper>
       <Poster>
-        <img src={posterurl} alt="poster" />
+        <img src={scaledUrl} alt="poster" />
       </Poster>
+      <PosterMobile>
+        <img src={posterurl} alt="poster" />
+      </PosterMobile>
       <Content>
         <BackButton onClick={() => router.push('/movieoverview')}>
           <span aria-hidden="true" />
@@ -63,7 +76,7 @@ const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
               <Score large>
                 <strong>{getAverageRatings(ratings)}</strong>
               </Score>
-              <IMDBRating large={true}>IMDB {imdbRating}</IMDBRating>
+              {imdbRating && <IMDBRating large={true}>IMDB {imdbRating}</IMDBRating>}
             </div>
             <FavoriteButton id={id} isFavorite={isFavorite} large />
           </ScoreView>

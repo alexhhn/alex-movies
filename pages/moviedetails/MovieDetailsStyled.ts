@@ -1,7 +1,12 @@
 import styled from 'styled-components';
+import devices from 'shared/media';
 
 const Wrapper = styled.div`
   display: flex;
+
+  @media ${devices.tabletOnly} {
+    flex-direction: column;
+  }
 `;
 
 export default Wrapper;
@@ -29,6 +34,11 @@ export const TitleRow = styled.div`
     flex: 1;
     margin: 0 20px 0 0;
   }
+
+  @media ${devices.mobileOnly} {
+    min-height: 100px;
+    margin-bottom: 8px;
+  }
 `;
 
 export const BackButton = styled.a`
@@ -49,12 +59,20 @@ export const BackButton = styled.a`
   &:hover {
     text-decoration: underline;
   }
+
+  @media ${devices.mobileOnly} {
+    margin-bottom: 16px;
+  }
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
   padding: 42px;
+
+  @media ${devices.mobileOnly} {
+    padding: 28px;
+  }
 `;
 
 export const Poster = styled.div`
@@ -69,5 +87,24 @@ export const Poster = styled.div`
     object-fit: cover;
     height: 100%;
     width: 40%;
+  }
+
+  @media ${devices.tabletOnly} {
+    display: none;
+  }
+`;
+
+export const PosterMobile = styled.div`
+  @media ${devices.tablet} {
+    display: none;
+  }
+
+  width: 100%;
+  height: 40vh;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    object-position: center;
   }
 `;

@@ -1,7 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'polished';
-import { primaryFont, typeScale } from './typography';
+import { primaryFont, typeScale, typeScaleMobile } from './typography';
 import { ThemeType } from './theme';
+import devices from './media';
 
 export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   ${normalize()}
@@ -27,11 +28,20 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   h1 {
     font-size: ${typeScale.header1};
     font-weight: 300;
+
   }
 
   h2 { 
     font-size: ${typeScale.header2}
   }
+
+  @media ${devices.mobileOnly} {
+    h1 {
+      font-size: ${typeScaleMobile.header1};
+      font-weight: 300;
+  
+    }
+   }
 
   h1,h2,h3,h4,h5 {
     margin-top: 0;

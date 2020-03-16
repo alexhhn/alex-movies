@@ -4,6 +4,7 @@ import { FavoriteBorder } from '@styled-icons/material/FavoriteBorder';
 import { useDispatch } from 'react-redux';
 import { toggleFavorite } from 'redux/ducks/userDuck/userDuck';
 import Tooltip from '@material-ui/core/Tooltip';
+import devices from 'shared/media';
 
 interface Props {
   id: string;
@@ -46,12 +47,17 @@ const Wrapper = styled.div<WrapperProps>`
     color: ${props => props.theme.favoriteColor};
     min-width: ${props => (props.large ? '48px' : '22px')};
     min-height: ${props => (props.large ? '48px' : '22px')};
-  }
 
-  &:hover {
-    transform: scale(1.25);
-    svg {
-      fill: darkred;
+    @media ${devices.mobileOnly} {
+      min-width: ${props => (props.large ? '32px' : '22px')};
+      min-height: ${props => (props.large ? '32px' : '22px')};
+    }
+
+    &:hover {
+      transform: scale(1.25);
+      svg {
+        fill: darkred;
+      }
     }
   }
 `;
