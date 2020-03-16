@@ -1,18 +1,53 @@
 import styled from 'styled-components';
 import MovieCard from 'components/MovieCard/MovieCard';
 import devices from 'shared/media';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
+import { useRouter } from 'next/router';
 
 interface Props {
   movies: IMovie[];
+  onClearSelection: () => void;
 }
 
-const MovieList = ({ movies }: Props) => (
-  <Wrapper>
-    {movies.map(movie => (
-      <MovieCard key={movie.id} {...movie} />
-    ))}
-  </Wrapper>
-);
+const MovieList = ({ movies, onClearSelection }: Props) => {
+  const router = useRouter();
+  const handleClick = (id: string) => {
+    router.push(`/moviedetails?id=${id}`);
+  };
+
+  const favorites = useSelector((state: RootState) => state.user.favorites);
+
+  if (movies.length === 0) {
+    return (
+      <NoMovieView>
+        <p>No movies currently available with these filters :(</p>
+        <button onClick={() => onClearSelection()}>Clear filter</button>
+      </NoMovieView>
+    );
+  }
+  return (
+    <Wrapper>
+      {movies.map(movie => {
+        const isFavorite = favorites.includes(movie.id) ? true : false;
+
+        return (
+          <MovieCard
+            key={movie.id}
+            movieData={movie}
+            isFavorite={isFavorite}
+            handleClick={handleClick}
+          />
+        );
+      })}
+    </Wrapper>
+  );
+};
+
+const NoMovieView = styled.div`
+  margin-top: 40px;
+  font-size: 20px;
+`;
 
 const Wrapper = styled.div`
   margin-top: 32px;

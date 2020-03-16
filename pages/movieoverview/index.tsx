@@ -6,19 +6,23 @@ import MovieList from 'components/MovieList/MovieList';
 import _union from 'lodash/union';
 import _keyBy from 'lodash/keyBy';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, toggleCategory, setSortby } from 'redux/ducks/movieDuck/movieDuck';
+import {
+  getCategories,
+  toggleCategory,
+  setSortby,
+  resetCategories,
+} from 'redux/ducks/movieDuck/movieDuck';
 import { RootState } from 'redux/store';
-import { movieHasCategory, getSortedMovies } from 'redux/ducks/movieDuck/movieUtils';
+import { getSortedMovies } from 'redux/ducks/movieDuck/movieUtils';
 import SortFilter from 'components/SortFilter/SortFilter';
 import _orderBy from 'lodash/orderBy';
 import Logo from 'public/images/logo.png';
 import devices from 'shared/media';
-import { setShowFavorite } from 'redux/ducks/userDuck/userDuck';
+import { setShowFavorite, removeShowFavorite } from 'redux/ducks/userDuck/userDuck';
 import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
 import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
-
+import _difference from 'lodash/difference';
 interface Props {
-  custom: string;
   movieState: MovieState;
 }
 
@@ -27,35 +31,59 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
   const categories = useSelector((state: RootState) => state.movies.categories);
   const selectedCategories = useSelector((state: RootState) => state.movies.selectedCategories);
   const sortByItem = useSelector((state: RootState) => state.movies.sortBy);
+  const showFavorites = useSelector((state: RootState) => state.user.showFavorites);
+  const favorites = useSelector((state: RootState) => state.user.favorites);
 
   // Mutate redux, client-side
   useEffect(() => {
     dispatch(getCategories(movieState.data));
   }, [movieState.data]);
 
-  const filteredMovies =
-    selectedCategories.length > 0
-      ? movieState.data.filter(movie => movieHasCategory(movie, selectedCategories))
-      : movieState.data;
+  let moviesToRendered = movieState.data;
 
-  const sortedMovies =
-    sortByItem.length > 0 ? getSortedMovies(filteredMovies, sortByItem) : filteredMovies;
+  // Filter by categories
+  if (selectedCategories.length > 0) {
+    moviesToRendered = movieState.data.filter(
+      movie => _difference(selectedCategories, movie.genres).length === 0,
+    );
+  }
+
+  // Filter by sort
+  if (sortByItem.length > 0) {
+    moviesToRendered = getSortedMovies(moviesToRendered, sortByItem);
+  }
+
+  // Filter by favorite
+  if (showFavorites) {
+    moviesToRendered = moviesToRendered.filter(movie => favorites.includes(movie.id));
+  }
+
+  console.log('moviesToRendered :', moviesToRendered);
+
+  const onClearSelection = () => {
+    dispatch(resetCategories());
+    dispatch(removeShowFavorite());
+  };
 
   return (
     <Wrapper>
       <LogoView>
         <img src={Logo} />
-        <p>REAL RATINGS</p>
+        <h1>REAL RATINGS</h1>
       </LogoView>
+      <h1></h1>
       <FilterView>
         <CategoryFilter
           categories={categories}
+          selectedCategories={selectedCategories}
           onChipSelect={categoryId => dispatch(toggleCategory(categoryId))}
           onFavoriteChipSelect={() => dispatch(setShowFavorite())}
+          onClearSelection={onClearSelection}
         />
         <SortFilter onSortItemSelect={sortItemId => dispatch(setSortby(sortItemId))} />
       </FilterView>
-      <MovieList movies={sortedMovies} />
+
+      <MovieList movies={moviesToRendered} onClearSelection={onClearSelection} />
     </Wrapper>
   );
 };
@@ -64,6 +92,7 @@ const Wrapper = styled.div`
   background-color: white;
   max-width: 1280px;
   margin: auto;
+  padding: 24px;
 `;
 
 const LogoView = styled.div`
@@ -74,9 +103,10 @@ const LogoView = styled.div`
   }
   align-items: flex-end;
 
-  p {
+  h1 {
     margin: 0 0 -2px 5px;
     font-size: 16px;
+    font-weight: normal;
   }
 `;
 
@@ -96,7 +126,7 @@ MovieOverview.getInitialProps = async ctx => {
   ctx.store.dispatch(setMovies(moviesFromServer));
   const movieState = ctx.store.getState().movies;
 
-  return { movieState, custom: 'custom' };
+  return { movieState };
 };
 
 export default MovieOverview;

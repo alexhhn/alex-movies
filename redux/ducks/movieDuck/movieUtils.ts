@@ -24,17 +24,6 @@ export const fetchMovies = async () => {
   }
 };
 
-export const movieHasCategory = (movie: IMovie, selectedCategories: string[]) => {
-  let res = false;
-  selectedCategories.forEach(element => {
-    if (movie.genres.includes(element)) {
-      console.log('movies.genres', movie.genres);
-      res = true;
-    }
-  });
-  return res;
-};
-
 export const getSortedMovies = (movies: IMovie[], sortByItemId: string) => {
   let result;
   switch (sortByItemId) {

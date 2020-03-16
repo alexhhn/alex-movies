@@ -16,12 +16,12 @@ interface MovieDetailState {
 }
 
 interface UserState {
-  favorites: number[];
+  favorites: string[];
   showFavorites: boolean;
 }
 
 interface IMovie {
-  id: number;
+  id: string;
   title: string;
   year: string;
   genres: string[];

@@ -1,34 +1,42 @@
-import styled from 'styled-components';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { getAverageRatings } from 'shared/utils';
-import { Favorite } from '@styled-icons/material/Favorite';
-import { FavoriteBorder } from '@styled-icons/material/FavoriteBorder';
-import { useRouter } from 'next/router';
-import devices from 'shared/media';
+import Tooltip from '@material-ui/core/Tooltip';
 
-const MovieCard = ({
-  id,
-  title,
-  ratings,
-  year,
-  genres,
-  posterurl,
-  imdbRating,
-  duration,
-  contentRating,
-  storyline,
-}: IMovie) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(`/moviedetails?id=${id}`);
-  };
+import {
+  Genres,
+  Description,
+  Duration,
+  Stats,
+  ContentRating,
+  Score,
+  IMDBRating,
+  Year,
+} from 'shared/styledMovieInfo';
+import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
+import { CardWrapper, Content, Meta } from './MovieCardStyled';
+
+interface Props {
+  movieData: IMovie;
+  isFavorite: boolean;
+  handleClick: (id: string) => void;
+}
+
+const MovieCard = ({ movieData, isFavorite, handleClick }: Props) => {
+  const {
+    id,
+    title,
+    ratings,
+    year,
+    genres,
+    posterurl,
+    imdbRating,
+    duration,
+    contentRating,
+    storyline,
+  } = movieData;
 
   return (
-    //! This should be passed as a props, since this is a dumb component
-    <CardWrapper onClick={handleClick}>
-      {/* <CardActionArea> */}
+    <CardWrapper onClick={() => handleClick(id)}>
       <CardMedia
         component="img"
         alt="Contemplative Reptile"
@@ -43,122 +51,24 @@ const MovieCard = ({
             <Score>
               <strong>{getAverageRatings(ratings)}</strong>
             </Score>
-            <pre>IMDB {imdbRating}</pre>
+            <IMDBRating>IMDB {imdbRating}</IMDBRating>
           </div>
           <Meta>
-            <pre>{year}</pre>
+            <Year>{year}</Year>
             <Duration>{duration}</Duration>
-            <ContentRating>{contentRating}</ContentRating>
+            {contentRating && (
+              <Tooltip disableFocusListener title={'Content Rating'}>
+                <ContentRating aria-label={'Content Rating'}>{contentRating}</ContentRating>
+              </Tooltip>
+            )}
           </Meta>
         </Stats>
         <Genres>{genres.join(', ')}</Genres>
         <Description>{storyline}</Description>
-        <FavoriteBorder size={22} />
+        <FavoriteButton id={id} isFavorite={isFavorite} />
       </Content>
     </CardWrapper>
   );
 };
-
-const CardWrapper = styled(Card)`
-  &.MuiPaper-root {
-    background-color: #fafafa;
-    transition: all 0.25s ease-in;
-    display: flex;
-    height: 100%;
-  }
-
-  > .MuiCardMedia-root {
-    height: initial;
-    width: 40%;
-  }
-
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.025);
-  }
-`;
-
-const Stats = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 12px 0 24px;
-
-  pre {
-    margin: 0;
-  }
-
-  > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-`;
-
-const Meta = styled.div`
-  align-items: flex-end;
-`;
-
-const Content = styled(CardContent)`
-  &.MuiCardContent-root {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    width: 60%;
-  }
-  padding: 0 12px 12px;
-
-  svg {
-    display: flex;
-    align-self: flex-end;
-    color: ${props => props.theme.favoriteColor};
-    min-width: 22px;
-    min-height: 22px;
-  }
-`;
-
-const Description = styled.p`
-  font-size: 14px;
-  max-height: 100px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-
-  @media ${devices.mobileOnly} {
-    display: none;
-  }
-`;
-
-const Score = styled.div`
-  width: 38px;
-  height: 38px;
-  border: 1px solid #d2d2d2;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 8px;
-
-  strong {
-    margin: 0;
-    font-size: 16px;
-  }
-`;
-
-const Genres = styled.p`
-  font-size: 14px;
-  font-weight: 500;
-  font-style: italic;
-`;
-
-const ContentRating = styled.pre`
-  text-decoration: underline;
-`;
-
-const Duration = styled.pre`
-  font-style: italic;
-`;
 
 export default MovieCard;

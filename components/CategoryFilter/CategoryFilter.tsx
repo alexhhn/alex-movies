@@ -1,107 +1,80 @@
-import Chip from '@material-ui/core/Chip';
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import _sortBy from 'lodash/sortBy';
-import devices from 'shared/media';
+import { Favorite } from '@styled-icons/material/Favorite';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
+import { Done } from '@styled-icons/material/Done';
+import Tooltip from '@material-ui/core/Tooltip';
+import { Wrapper, ClickableSpan, StyledChip, CategorySelection } from './CategoryFilterStyled';
 
 interface Props {
   categories: Category[];
+  selectedCategories: string[];
   onChipSelect: (categoryId: number) => {};
+  onFavoriteChipSelect: () => {};
+  onClearSelection: () => void;
 }
 
-const CategoryFilter = ({ categories, onChipSelect }: Props) => {
-  const selectedCategories = categories.filter(cat => cat.isSelected);
-  const unSelectedCategories = categories.filter(cat => !cat.isSelected);
+const CategoryFilter = ({
+  categories,
+  selectedCategories,
+  onChipSelect,
+  onFavoriteChipSelect,
+  onClearSelection,
+}: Props) => {
+  const showFavorites = useSelector((state: RootState) => state.user.showFavorites);
+  const favorites = useSelector((state: RootState) => state.user.favorites);
+  const hasFavorites = favorites.length > 0;
 
   if (categories.length > 0) {
     return (
       <Wrapper>
-        {selectedCategories.map(cat => (
-          // let icon;
-
+        <Tooltip
+          title={
+            hasFavorites
+              ? showFavorites
+                ? 'Hide favorites'
+                : 'Show favorite movies'
+              : 'You do not have any favorite movies'
+          }
+          disableFocusListener
+        >
+          <ClickableSpan>
+            <StyledChip
+              key={'favorites'}
+              icon={<Favorite size={20} />}
+              clickable
+              selected={showFavorites}
+              label={'Favorite'}
+              onClick={() => onFavoriteChipSelect()}
+              disabled={hasFavorites ? false : true}
+            />
+          </ClickableSpan>
+        </Tooltip>
+        <CategorySelection>
           <StyledChip
-            key={cat.id}
-            label={cat.name}
+            key={'-1'}
+            label={'All movies'}
             clickable
-            selected={cat.isSelected}
-            onClick={() => onChipSelect(cat.id)}
-            // onDelete={data.label === 'React' ? undefined : handleDelete(data)}
+            selected={selectedCategories.length === 0 && !showFavorites}
+            onClick={() => onClearSelection()}
           />
-        ))}
-
-        {unSelectedCategories.map(cat => (
-          // let icon;
-
-          <StyledChip
-            key={cat.id}
-            label={cat.name}
-            clickable
-            selected={cat.isSelected}
-            onClick={() => onChipSelect(cat.id)}
-            // onDelete={data.label === 'React' ? undefined : handleDelete(data)}
-          />
-        ))}
+          {categories.map(cat => (
+            <StyledChip
+              key={cat.id}
+              label={cat.name}
+              clickable
+              icon={cat.isSelected ? <Done size={20} /> : undefined}
+              selected={cat.isSelected}
+              onClick={() => onChipSelect(cat.id)}
+            />
+          ))}
+        </CategorySelection>
       </Wrapper>
     );
   }
 
   return <h2>Fetching categories...</h2>;
 };
-
-const Wrapper = styled.div`
-  @media ${devices.mobileOnly} {
-    width: 100%;
-    display: grid;
-    grid-gap: 8px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-
-    /* flex-wrap: wrap; */
-    /* justify-content: space-around; */
-  }
-`;
-
-interface ChipProps {
-  selected: boolean;
-}
-
-const StyledChip = styled(Chip)<ChipProps>`
-  &.MuiChip-root {
-    margin: 0 4px 8px 0;
-    height: 32px;
-    border-radius: 100px;
-    color: ${props => props.selected && props.theme.chipColor};
-    background-color: ${props => props.selected && props.theme.chipBGColor};
-    min-width: 120px;
-    font-size: 16px;
-
-    @media ${devices.tabletOnly} {
-      height: 28px;
-      padding: 4px 8px;
-      min-width: 120px;
-
-      .MuiChip-label {
-        font-size: 16px;
-        padding: 8px 32px;
-      }
-    }
-
-    @media ${devices.mobileOnly} {
-      height: 24px;
-      margin: 0;
-      padding: 2px 4px;
-      min-width: 100px;
-      .MuiChip-label {
-        font-size: 12px;
-        padding: 8px;
-      }
-    }
-  }
-
-  &.MuiChip-clickable:hover {
-    background-color: ${props => props.selected && props.theme.chipBGColorHover};
-    color: ${props => props.selected && props.theme.interactionColor};
-  }
-`;
 
 export default CategoryFilter;

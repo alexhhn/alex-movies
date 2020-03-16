@@ -1,6 +1,7 @@
 // Actions constant
 const TOGGLE_STATE = 'TOGGLE_STATE';
 const SET_SHOW_FAVORITE = 'SET_SHOW_FAVORITE';
+const REMOVE_SHOW_FAVORITE = 'REMOVE_SHOW_FAVORITE';
 
 export const initialState: UserState = {
   favorites: [],
@@ -9,6 +10,8 @@ export const initialState: UserState = {
 
 export default function UserReducer(state = initialState, action: Action): UserState {
   switch (action.type) {
+    case REMOVE_SHOW_FAVORITE:
+      return { ...state, showFavorites: false };
     case SET_SHOW_FAVORITE:
       return { ...state, showFavorites: !state.showFavorites };
     case TOGGLE_STATE:
@@ -23,11 +26,15 @@ export default function UserReducer(state = initialState, action: Action): UserS
   }
 }
 
-export const toggleFavorite = (movieId: number) => ({
+export const toggleFavorite = (movieId: string) => ({
   type: TOGGLE_STATE,
   payload: movieId,
 });
 
 export const setShowFavorite = () => ({
   type: SET_SHOW_FAVORITE,
+});
+
+export const removeShowFavorite = () => ({
+  type: REMOVE_SHOW_FAVORITE,
 });

@@ -1,15 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'polished';
 import { primaryFont, typeScale } from './typography';
-import { black } from 'shared/colors';
 import { ThemeType } from './theme';
 
 export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   ${normalize()}
-
-  :root {
-    font-size: 62.5%;
-  }
 
   html {
     box-sizing: border-box;
@@ -22,22 +17,38 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
 
   body {
     margin: 0;
-    padding: 24px;
     font-family: ${primaryFont};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 1.6rem;
-    color: ${props => props.theme.textColor} 
+    font-size: 1rem;
+    color: ${props => props.theme.textColor} ;
+  }
+
+  h1 {
+    font-size: ${typeScale.header1};
+    font-weight: 300;
   }
 
   h2 { 
     font-size: ${typeScale.header2}
   }
 
+  h1,h2,h3,h4,h5 {
+    margin-top: 0;
+  }
+
   pre {
     font-family: ${primaryFont};
     font-size: ${typeScale.helperText}
 
+  }
+
+  button {
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: ${props => props.theme.interactionColor};
+    text-decoration: underline;
   }
 
 `;

@@ -6,6 +6,7 @@ const SET_MOVIES = 'SET_MOVIES';
 const SET_CATEGORIES = 'SET_CATEGORIES';
 const TOGGLE_CATEGORY = 'TOGGLE_CATEGORY';
 const SET_SORTBY = 'SET_SORTBY';
+const RESET_CATEGORIES = 'RESET_CATEGORIES';
 
 export const initialState: MovieState = {
   data: [],
@@ -43,6 +44,15 @@ export default function MovieReducer(state = initialState, action: Action): Movi
       } else {
         return state;
       }
+    case RESET_CATEGORIES:
+      return {
+        ...state,
+        selectedCategories: [],
+        categories: state.categories.map(cat => {
+          cat.isSelected = false;
+          return cat;
+        }),
+      };
     default:
       return state;
   }
@@ -62,6 +72,10 @@ export const toggleCategory = (categoryId: number) => ({
 export const setSortby = (sortItemId: string) => ({
   type: SET_SORTBY,
   payload: sortItemId,
+});
+
+export const resetCategories = () => ({
+  type: RESET_CATEGORIES,
 });
 
 export const getCategories = (movies: IMovie[]) => {
