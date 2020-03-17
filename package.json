@@ -10,6 +10,7 @@
     "start": "next start",
     "build": "next build",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
     "lint-fix": "eslint --fix  --ext .js,.jsx,.ts,.tsx ./"
   },
@@ -45,6 +46,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-preset-react-app": "^9.1.0",
+    "cypress": "^4.2.0",
     "eslint-config-airbnb-typescript": "^7.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
