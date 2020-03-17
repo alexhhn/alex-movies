@@ -16,15 +16,16 @@ import { RootState } from 'redux/store';
 import { getSortedMovies } from 'redux/ducks/movieDuck/movieUtils';
 import SortFilter from 'components/SortFilter/SortFilter';
 import _orderBy from 'lodash/orderBy';
-// import Logo from 'public/images/logo.png';
 import Logo from 'public/images/logo-miles-red.svg';
 import devices from 'shared/media';
-import { setShowFavorite, removeShowFavorite } from 'redux/ducks/userDuck/userDuck';
+import { setShowFavorite, removeShowFavorite, toggleTheme } from 'redux/ducks/userDuck/userDuck';
 import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
 import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 import _difference from 'lodash/difference';
 import { typeScale } from 'shared/typography';
 import { CameraMovie } from '@styled-icons/boxicons-solid/CameraMovie';
+import { Moon } from '@styled-icons/boxicons-regular/Moon';
+import { Moon as MoonFilled } from '@styled-icons/boxicons-solid/Moon';
 
 interface Props {
   movieState: MovieState;
@@ -37,6 +38,8 @@ interface Props {
 const MovieOverview: NextPage<Props> = ({ movieState }) => {
   const dispatch = useDispatch();
   const categories = useSelector((state: RootState) => state.movies.categories);
+  const isDarkTheme = useSelector((state: RootState) => state.user.darkTheme);
+
   const selectedCategories = useSelector((state: RootState) => state.movies.selectedCategories);
   const sortByItem = useSelector((state: RootState) => state.movies.sortBy);
   const showFavorites = useSelector((state: RootState) => state.user.showFavorites);
@@ -73,11 +76,18 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
 
   return (
     <Wrapper>
-      <LogoView>
-        <img src={Logo} />
-        <CameraMovie size={18} />
-        <h1>REAL RATINGS</h1>
-      </LogoView>
+      <TopBar>
+        <LogoView>
+          <img src={Logo} />
+          <CameraMovie size={18} />
+          <h1>REAL RATINGS</h1>
+        </LogoView>
+        {isDarkTheme ? (
+          <MoonFilled size={30} onClick={() => dispatch(toggleTheme())} />
+        ) : (
+          <Moon size={30} onClick={() => dispatch(toggleTheme())} />
+        )}
+      </TopBar>
       <h1></h1>
       <FilterView>
         <CategoryFilter
@@ -99,6 +109,16 @@ const Wrapper = styled.div`
   max-width: 1280px;
   margin: auto;
   padding: 24px;
+`;
+
+const TopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  > svg {
+    transform: rotate(270deg);
+    cursor: pointer;
+  }
 `;
 
 const LogoView = styled.div`

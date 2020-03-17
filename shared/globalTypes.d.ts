@@ -18,6 +18,7 @@ interface MovieDetailState {
 interface UserState {
   favorites: string[];
   showFavorites: boolean;
+  darkTheme: boolean;
 }
 
 interface IMovie {

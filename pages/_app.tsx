@@ -6,16 +6,15 @@ import { Provider } from 'react-redux';
 import store from '../redux/store';
 import { BASE_URL } from 'shared/constants';
 import axios from 'axios';
-import { ThemeProvider } from 'styled-components';
 import { Store } from 'redux';
 import { GlobalStyle } from 'shared/globalStyle';
-import { defaultTheme, darkTheme } from 'shared/theme';
-// import {MoonOutline} from '@styled-icons/evaicons-outline/MoonOutline;
+import AppThemeProvider from 'shared/themeProvider';
 // TODO: Get theme with redux
 axios.defaults.baseURL = BASE_URL;
 
 interface Props extends NextPageContext {
   store: Store;
+  setTheme: any;
 }
 
 class MyApp extends App<Props> {
@@ -31,19 +30,19 @@ class MyApp extends App<Props> {
   }
 
   render() {
-    const { store, Component, pageProps } = this.props;
+    const { store, Component, pageProps, setTheme } = this.props;
+
     return (
       <Provider store={store}>
         <Head>
           <title>Miles Movies</title>
         </Head>
-        <ThemeProvider theme={defaultTheme}>
-          {/* <ThemeProvider theme={darkTheme}> */}
+        <AppThemeProvider>
           <>
-            <Component {...pageProps} />
+            <Component {...pageProps} setTheme={setTheme} />
             <GlobalStyle />
           </>
-        </ThemeProvider>
+        </AppThemeProvider>
       </Provider>
     );
   }

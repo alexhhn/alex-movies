@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import devices from 'shared/media';
-import { grey } from 'shared/colors';
 import { typeScale } from './typography';
 
 interface Props {

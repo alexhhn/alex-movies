@@ -59,7 +59,9 @@ const StyledSelect = styled(Select)`
 
   .MuiInputBase-input {
     font-size: ${typeScale.paragraph};
+    color: ${props => props.theme.textColor};
   }
+
   .MuiSvgIcon-root {
     fill: ${props => props.theme.interactionColor};
     width: 26px;
