@@ -1,4 +1,5 @@
 # Installation
+Make sure you have NodeJs installed: https://nodejs.org/en/
 - npm install
 - npm start
 
