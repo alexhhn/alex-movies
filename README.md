@@ -3,7 +3,7 @@
 Make sure you have NodeJs installed: https://nodejs.org/en/
 
 - npm install
-- npm run dev
+- npm run dev - Run the app locally at localhost:3001
 - npm run test: Run the sample jest-test
 - npm run cypress:open Run the sample cypress-test
 
