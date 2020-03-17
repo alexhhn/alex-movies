@@ -3,7 +3,7 @@ describe("Index page", () => {
     * Visits the page before each test
     */
     beforeEach(() => {
-      cy.log(`Visiting http://localhost:4000`);
+      cy.log(`Visiting http://localhost:3001`);
       cy.visit("/");
     });
 
