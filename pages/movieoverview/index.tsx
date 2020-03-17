@@ -118,6 +118,7 @@ const TopBar = styled.div`
   > svg {
     transform: rotate(270deg);
     cursor: pointer;
+    color: ${props => props.theme.interactionColor};
   }
 `;
 
