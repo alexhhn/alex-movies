@@ -1,8 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Favorite } from '@styled-icons/material/Favorite';
 import { FavoriteBorder } from '@styled-icons/material/FavoriteBorder';
-import { useDispatch } from 'react-redux';
-import { toggleFavorite } from 'redux/ducks/userDuck/userDuck';
+
 import Tooltip from '@material-ui/core/Tooltip';
 import devices from 'shared/media';
 
@@ -10,18 +10,18 @@ interface Props {
   id: string;
   isFavorite: boolean;
   large?: boolean;
+  onClick: (id: string) => {};
 }
 
-export const FavoriteButton = ({ id, isFavorite, large }: Props) => {
-  const dispatch = useDispatch();
+const FavoriteButton = ({ id, isFavorite, large, onClick }: Props) => {
   const onFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(toggleFavorite(id));
+    onClick(id);
   };
 
   return (
     <Tooltip title={isFavorite ? 'Remove from favorite' : 'Add to favorite'} disableFocusListener>
-      <Wrapper onClick={onFavoriteClick} large={large ? true : false}>
+      <Wrapper data-testid="favorite-btn" onClick={onFavoriteClick} large={large ? true : false}>
         {isFavorite ? <Favorite size={22} /> : <FavoriteBorder size={22} />}
       </Wrapper>
     </Tooltip>
@@ -61,3 +61,5 @@ const Wrapper = styled.div<WrapperProps>`
     }
   }
 `;
+
+export default FavoriteButton;

@@ -12,7 +12,7 @@ import {
   IMDBRating,
   Year,
 } from 'shared/styledMovieInfo';
-import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
+import FavoriteButtonConnector from 'components/FavoriteButton/FavoriteButtonConnector';
 import Wrapper, { Content, Meta } from './MovieCardStyled';
 
 interface Props {
@@ -65,7 +65,7 @@ const MovieCard = ({ movieData, isFavorite, handleClick }: Props) => {
         </Stats>
         <Genres>{genres.join(', ')}</Genres>
         <Description>{storyline}</Description>
-        <FavoriteButton id={id} isFavorite={isFavorite} />
+        <FavoriteButtonConnector id={id} isFavorite={isFavorite} />
       </Content>
     </Wrapper>
   );

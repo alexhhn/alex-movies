@@ -15,7 +15,7 @@ import {
 } from 'shared/styledMovieInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import { FavoriteButton } from 'components/FavoriteButton/FavoriteButton';
+import FavoriteButtonConnector from 'components/FavoriteButton/FavoriteButtonConnector';
 import { useRouter } from 'next/router';
 import Wrapper, {
   Poster,
@@ -81,7 +81,7 @@ const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
               </Score>
               {imdbRating && <IMDBRating large={true}>IMDB {imdbRating}</IMDBRating>}
             </div>
-            <FavoriteButton id={id} isFavorite={isFavorite} large />
+            <FavoriteButtonConnector id={id} isFavorite={isFavorite} large />
           </ScoreView>
         </TitleRow>
         <Stats large>
