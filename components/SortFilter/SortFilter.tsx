@@ -66,8 +66,14 @@ const StyledSelect = styled(Select)`
     height: 26px;
   }
 
-  &.MuiInput-underline::before {
-    border-bottom: 1px solid ${props => props.theme.interactionColor};
+  &.MuiInput-underline {
+    &::before {
+      border-bottom: 1px solid ${props => props.theme.interactionColor};
+    }
+
+    &::after {
+      border-bottom: 1px solid ${props => props.theme.interactionColor};
+    }
   }
 
   .MuiSelect-selectMenu {

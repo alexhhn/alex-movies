@@ -57,16 +57,15 @@ const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
   const isFavorite = favorites.includes(id) ? true : false;
   const router = useRouter();
 
-  const scaledUrl = getScaledImageUrl(posterurl, 3);
-  console.log('scaledUrl :', scaledUrl);
-
+  const scaledDekstopUrl = getScaledImageUrl(posterurl, 3);
+  const scaledMobileUrl = getScaledImageUrl(posterurl, 2);
   return (
     <Wrapper>
       <Poster>
-        <img src={scaledUrl} alt="poster" />
+        <img src={scaledDekstopUrl} alt="poster" />
       </Poster>
       <PosterMobile>
-        <img src={posterurl} alt="poster" />
+        <img src={scaledMobileUrl} alt="poster" />
       </PosterMobile>
       <Content>
         <BackButton onClick={() => router.push('/movieoverview')}>

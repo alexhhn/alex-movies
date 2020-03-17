@@ -19,3 +19,14 @@ export const red = {
   dark: '#CA4736',
   darker: 'darkred',
 };
+
+export const white = {
+  default: 'white',
+};
+
+// Darkmode
+export const dark = {
+  black: '#212936',
+  light: '#56657F',
+  white: '#AFBDD1',
+};

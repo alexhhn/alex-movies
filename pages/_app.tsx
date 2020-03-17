@@ -9,8 +9,9 @@ import axios from 'axios';
 import { ThemeProvider } from 'styled-components';
 import { Store } from 'redux';
 import { GlobalStyle } from 'shared/globalStyle';
-import { defaultTheme } from 'shared/theme';
-
+import { defaultTheme, darkTheme } from 'shared/theme';
+// import {MoonOutline} from '@styled-icons/evaicons-outline/MoonOutline;
+// TODO: Get theme with redux
 axios.defaults.baseURL = BASE_URL;
 
 interface Props extends NextPageContext {
@@ -37,6 +38,7 @@ class MyApp extends App<Props> {
           <title>Miles Movies</title>
         </Head>
         <ThemeProvider theme={defaultTheme}>
+          {/* <ThemeProvider theme={darkTheme}> */}
           <>
             <Component {...pageProps} />
             <GlobalStyle />

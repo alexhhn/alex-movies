@@ -5,10 +5,11 @@ import devices from 'shared/media';
 
 const CardWrapper = styled(Card)`
   &.MuiPaper-root {
-    background-color: #fafafa;
+    background-color: ${props => props.theme.cardBGColor};
     transition: all 0.25s ease-in;
     display: flex;
     height: 100%;
+    color: ${props => props.theme.textColor};
   }
 
   > .MuiCardMedia-root {
@@ -16,7 +17,7 @@ const CardWrapper = styled(Card)`
 
     @media ${devices.mobileOnly} {
       height: 100%;
-      max-height: 250px;
+      max-height: 300px;
     }
 
     width: 40%;

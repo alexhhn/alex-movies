@@ -23,7 +23,8 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     -moz-osx-font-smoothing: grayscale;
     //* Default all font size to be 1rem, normally 16px
     font-size: 1rem;
-    color: ${props => props.theme.textColor} ;
+    color: ${props => props.theme.textColor};
+    background-color: ${props => props.theme.backgroundColor} 
   }
 
   h1 {
@@ -54,6 +55,8 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   button {
     border: none;
     cursor: pointer;
+    background-color: transparent;
+    outline-color: ${props => props.theme.interactionColor}
     padding: 0;
     color: ${props => props.theme.interactionColor};
     text-decoration: underline;

@@ -16,7 +16,7 @@ export const Score = styled.div<Props>`
     height: ${props => (props.large ? '50px' : '38px')};
   }
 
-  border: 1px solid #d2d2d2;
+  border: 1px solid ${props => props.theme.borderColor};
   border-radius: ${props => (props.large ? '0' : '50%')};
   display: flex;
   justify-content: center;
@@ -36,7 +36,7 @@ export const Score = styled.div<Props>`
 export const Description = styled.p<Props>`
   font-size: ${props => (props.large ? '18px' : '14px')};
   ${props => !props.large && 'max-height: 100px'};
-  color: ${grey.dark};
+  color: ${props => props.theme.descriptionColor};
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: ${props => (props.large ? '10' : '3')};

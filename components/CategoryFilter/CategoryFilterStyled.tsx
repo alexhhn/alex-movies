@@ -35,8 +35,9 @@ export const StyledChip = styled(Chip)<ChipProps>`
     margin: 0 4px 8px 0;
     height: 32px;
     border-radius: 100px;
-    color: ${props => props.selected && props.theme.chipColor};
-    background-color: ${props => props.selected && props.theme.chipBGColor};
+    color: ${props => (props.selected ? props.theme.chipSelectedColor : props.theme.textColor)};
+    background-color: ${props =>
+      props.selected ? props.theme.chipSelectedBGColor : props.theme.chipBGColor};
     min-width: 120px;
     font-size: ${typeScale.helperText};
 
@@ -70,11 +71,13 @@ export const StyledChip = styled(Chip)<ChipProps>`
   }
 
   &.MuiChip-clickable:hover {
-    background-color: ${props => props.selected && props.theme.chipBGColorHover};
     color: ${props => props.selected && props.theme.interactionColor};
+    background-color: ${props =>
+      props.selected ? props.theme.chipSelectedBGColor : props.theme.chipBGColorHover};
   }
 
   &.MuiChip-clickable:focus {
-    background-color: ${props => props.selected && props.theme.chipBGColorHover};
+    background-color: ${props =>
+      props.selected ? props.theme.chipSelectedBGColor : props.theme.chipBGColor};
   }
 `;

@@ -16,13 +16,16 @@ import { RootState } from 'redux/store';
 import { getSortedMovies } from 'redux/ducks/movieDuck/movieUtils';
 import SortFilter from 'components/SortFilter/SortFilter';
 import _orderBy from 'lodash/orderBy';
-import Logo from 'public/images/logo.png';
+// import Logo from 'public/images/logo.png';
+import Logo from 'public/images/logo-miles-red.svg';
 import devices from 'shared/media';
 import { setShowFavorite, removeShowFavorite } from 'redux/ducks/userDuck/userDuck';
 import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
 import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 import _difference from 'lodash/difference';
 import { typeScale } from 'shared/typography';
+import { CameraMovie } from '@styled-icons/boxicons-solid/CameraMovie';
+
 interface Props {
   movieState: MovieState;
 }
@@ -72,6 +75,7 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
     <Wrapper>
       <LogoView>
         <img src={Logo} />
+        <CameraMovie size={18} />
         <h1>REAL RATINGS</h1>
       </LogoView>
       <h1></h1>
@@ -100,9 +104,15 @@ const Wrapper = styled.div`
 const LogoView = styled.div`
   display: flex;
   img {
-    width: 80px;
+    width: 30px;
     object-fit: contain;
   }
+
+  svg {
+    margin: 0 0 -1px 4px;
+    color: ${props => props.theme.textColor};
+  }
+
   align-items: flex-end;
 
   h1 {
