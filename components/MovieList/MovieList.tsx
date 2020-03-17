@@ -23,14 +23,16 @@ const MovieList = ({ movies, onClearSelection }: Props) => {
     return (
       <NoMovieView>
         <p>No movies currently available with these filters :(</p>
-        <button onClick={() => onClearSelection()}>Clear filter</button>
+        <button type="button" onClick={() => onClearSelection()}>
+          Clear filter
+        </button>
       </NoMovieView>
     );
   }
   return (
     <Wrapper>
       {movies.map(movie => {
-        const isFavorite = favorites.includes(movie.id) ? true : false;
+        const isFavorite = !!favorites.includes(movie.id);
 
         return (
           <MovieCard

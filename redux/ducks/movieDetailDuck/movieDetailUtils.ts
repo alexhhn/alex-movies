@@ -1,5 +1,5 @@
 import axios from 'axios';
-import utils from 'shared/utils';
+import { getAverageRatings, convertPlayTime } from 'shared/utils';
 
 export const fetchMovieById = async (movieId: string) => {
   try {
@@ -7,8 +7,8 @@ export const fetchMovieById = async (movieId: string) => {
 
     const data = {
       ...res.data,
-      rating: utils.getAverageRatings(res.data.ratings),
-      duration: utils.convertPlayTime(res.data.duration),
+      rating: getAverageRatings(res.data.ratings),
+      duration: convertPlayTime(res.data.duration),
     };
 
     return data;

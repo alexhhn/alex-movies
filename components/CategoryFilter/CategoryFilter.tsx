@@ -1,5 +1,4 @@
 import React from 'react';
-import _sortBy from 'lodash/sortBy';
 import { Favorite } from '@styled-icons/material/Favorite';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -41,20 +40,20 @@ const CategoryFilter = ({
         >
           <ClickableSpan>
             <StyledChip
-              key={'favorites'}
+              key="favorites"
               icon={<Favorite size={20} />}
               clickable
               selected={showFavorites}
-              label={'Favorite'}
+              label="Favorite"
               onClick={() => onFavoriteChipSelect()}
-              disabled={hasFavorites ? false : true}
+              disabled={!hasFavorites}
             />
           </ClickableSpan>
         </Tooltip>
         <CategorySelection>
           <StyledChip
-            key={'-1'}
-            label={'All movies'}
+            key="-1"
+            label="All movies"
             clickable
             selected={selectedCategories.length === 0 && !showFavorites}
             onClick={() => onClearSelection()}

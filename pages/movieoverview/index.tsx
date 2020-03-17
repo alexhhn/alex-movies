@@ -3,28 +3,28 @@ import styled from 'styled-components';
 import React, { useEffect } from 'react';
 import CategoryFilter from 'components/CategoryFilter/CategoryFilter';
 import MovieList from 'components/MovieList/MovieList';
-import _union from 'lodash/union';
-import _keyBy from 'lodash/keyBy';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getCategories,
   toggleCategory,
   setSortby,
   resetCategories,
+  setMovies,
 } from 'redux/ducks/movieDuck/movieDuck';
 import { RootState } from 'redux/store';
-import { getSortedMovies } from 'redux/ducks/movieDuck/movieUtils';
+import { getSortedMovies, fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 import SortFilter from 'components/SortFilter/SortFilter';
-import _orderBy from 'lodash/orderBy';
 import Logo from 'public/images/logo-miles-red.svg';
 import devices from 'shared/media';
 import { setShowFavorite, removeShowFavorite, toggleTheme } from 'redux/ducks/userDuck/userDuck';
-import { setMovies } from 'redux/ducks/movieDuck/movieDuck';
-import { fetchMovies } from 'redux/ducks/movieDuck/movieUtils';
 import _difference from 'lodash/difference';
 import { typeScale } from 'shared/typography';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { CameraMovie } from '@styled-icons/boxicons-solid/CameraMovie';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Moon } from '@styled-icons/boxicons-regular/Moon';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Moon as MoonFilled } from '@styled-icons/boxicons-solid/Moon';
 
 interface Props {
@@ -78,7 +78,7 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
     <Wrapper>
       <TopBar>
         <LogoView>
-          <img src={Logo} />
+          <img src={Logo} alt="page-logo" />
           <CameraMovie size={18} />
           <h1>REAL RATINGS</h1>
         </LogoView>
@@ -88,7 +88,6 @@ const MovieOverview: NextPage<Props> = ({ movieState }) => {
           <Moon size={30} onClick={() => dispatch(toggleTheme())} />
         )}
       </TopBar>
-      <h1></h1>
       <FilterView>
         <CategoryFilter
           categories={categories}

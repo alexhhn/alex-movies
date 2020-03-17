@@ -1,5 +1,5 @@
 import axios from 'axios';
-import utils from 'shared/utils';
+import { getAverageRatings, convertPlayTime } from 'shared/utils';
 import _orderBy from 'lodash/orderBy';
 
 import { sortValuesIds } from 'shared/constants';
@@ -9,13 +9,11 @@ export const fetchMovies = async () => {
     const res = await axios.get('/data');
     // Translate data to readable fields
     // ? It *might* be better to get these field from back-end
-    const data = res.data.map((element: IMovie) => {
-      return {
-        ...element,
-        rating: utils.getAverageRatings(element.ratings),
-        duration: utils.convertPlayTime(element.duration),
-      };
-    });
+    const data = res.data.map((element: IMovie) => ({
+      ...element,
+      rating: getAverageRatings(element.ratings),
+      duration: convertPlayTime(element.duration),
+    }));
 
     return data;
   } catch (err) {

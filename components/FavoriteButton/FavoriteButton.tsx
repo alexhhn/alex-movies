@@ -21,7 +21,7 @@ const FavoriteButton = ({ id, isFavorite, large, onClick }: Props) => {
 
   return (
     <Tooltip title={isFavorite ? 'Remove from favorite' : 'Add to favorite'} disableFocusListener>
-      <Wrapper data-testid="favorite-btn" onClick={onFavoriteClick} large={large ? true : false}>
+      <Wrapper data-testid="favorite-btn" onClick={onFavoriteClick} large={!!large}>
         {isFavorite ? <Favorite size={22} /> : <FavoriteBorder size={22} />}
       </Wrapper>
     </Tooltip>

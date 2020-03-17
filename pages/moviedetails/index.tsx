@@ -54,7 +54,7 @@ const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
   } = movieDetailData;
 
   const favorites = useSelector((state: RootState) => state.user.favorites);
-  const isFavorite = favorites.includes(id) ? true : false;
+  const isFavorite = !!favorites.includes(id);
   const router = useRouter();
 
   const scaledDekstopUrl = getScaledImageUrl(posterurl, 3);
@@ -79,7 +79,12 @@ const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
               <Score large>
                 <strong>{getAverageRatings(ratings)}</strong>
               </Score>
-              {imdbRating && <IMDBRating large={true}>IMDB {imdbRating}</IMDBRating>}
+              {imdbRating && (
+                <IMDBRating large>
+                  IMDB
+                  {imdbRating}
+                </IMDBRating>
+              )}
             </div>
             <FavoriteButtonConnector id={id} isFavorite={isFavorite} large />
           </ScoreView>
@@ -107,11 +112,12 @@ const MovieDetails: NextPage<Props> = ({ movieDetailData }) => {
 
 MovieDetails.getInitialProps = async ctx => {
   // * A Query can be a string or an array of strings.
-  const movieIdFromQuery = typeof ctx.query.id == 'string' ? ctx.query.id : ctx.query.id[0];
+  const movieIdFromQuery = typeof ctx.query.id === 'string' ? ctx.query.id : ctx.query.id[0];
 
   let movieDetailData;
   const movieState = ctx.store.getState().movies;
-  // * We dont need to fetch data for a single movie if this page is redirected from movie overview (homepage), only when the page is loaded by a URL. This helps optimizing the pageload speed.
+  // * We dont need to fetch data for a single movie if this page is redirected from movie overview (homepage)
+  // * only when the page is loaded by a URL. This helps optimizing the pageload speed.
   if (movieState.data.length === 0) {
     const movieDataFromServer = await fetchMovieById(movieIdFromQuery);
     ctx.store.dispatch(setMovieDetail(movieDataFromServer));

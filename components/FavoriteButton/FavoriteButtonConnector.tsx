@@ -1,6 +1,6 @@
-import FavoriteButton from './FavoriteButton';
 import { useDispatch } from 'react-redux';
 import { toggleFavorite } from 'redux/ducks/userDuck/userDuck';
+import FavoriteButton from './FavoriteButton';
 
 export interface Props {
   id: string;

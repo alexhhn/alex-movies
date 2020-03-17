@@ -1,5 +1,4 @@
 import _union from 'lodash/union';
-import _reduce from 'lodash/reduce';
 
 const SET_MOVIES = 'SET_MOVIES';
 const SET_CATEGORIES = 'SET_CATEGORIES';
@@ -23,8 +22,13 @@ export default function MovieReducer(state = initialState, action: Action): Movi
     case SET_SORTBY:
       return { ...state, sortBy: action.payload };
     case TOGGLE_CATEGORY:
-      // * We want to avoid mutating state. In order to toggle a category, we first find the selected category, toggle its selected boolean-value in categories and then update state.selectedCategories
+      // * We want to avoid mutating state.
+      // * In order to toggle a category, we first find the selected category, toggle its selected boolean-value in categories
+      // * Finally, update state.selectedCategories
+
+      // eslint-disable-next-line no-case-declarations
       const categoryId = action.payload;
+      // eslint-disable-next-line no-case-declarations
       const selectedCategory = state.categories.find(cat => cat.id === categoryId);
 
       // ? Here we can consider using libraries like immutation helper for better readability
@@ -40,9 +44,9 @@ export default function MovieReducer(state = initialState, action: Action): Movi
             ? state.selectedCategories.filter(category => category !== selectedCategory.name)
             : [...state.selectedCategories, selectedCategory.name],
         };
-      } else {
-        return state;
       }
+      return state;
+
     case RESET_CATEGORIES:
       return {
         ...state,
@@ -78,14 +82,12 @@ export const resetCategories = () => ({
 });
 
 export const getCategories = (movies: IMovie[]) => {
-  let res: string[] = [];
+  let res: any;
   movies.forEach((element: IMovie) => {
     res = _union(res, element.genres);
   });
 
-  res = res.map((item, i) => {
-    return Object.assign({ id: i, name: item, isSelected: false });
-  });
+  res = res.map((item: string, i: number) => ({ id: i, name: item, isSelected: false }));
 
   return {
     type: SET_CATEGORIES,

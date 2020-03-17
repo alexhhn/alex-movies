@@ -51,14 +51,19 @@ const MovieCard = ({ movieData, isFavorite, handleClick }: Props) => {
             <Score>
               <strong>{getAverageRatings(ratings)}</strong>
             </Score>
-            {imdbRating && <IMDBRating>IMDB {imdbRating}</IMDBRating>}
+            {imdbRating && (
+            <IMDBRating>
+              IMDB
+              {imdbRating}
+            </IMDBRating>
+            )}
           </div>
           <Meta>
             <Year>{year}</Year>
             <Duration>{duration}</Duration>
             {contentRating && (
-              <Tooltip disableFocusListener title={'Content Rating'}>
-                <ContentRating aria-label={'Content Rating'}>{contentRating}</ContentRating>
+              <Tooltip disableFocusListener title="Content Rating">
+                <ContentRating aria-label="Content Rating">{contentRating}</ContentRating>
               </Tooltip>
             )}
           </Meta>

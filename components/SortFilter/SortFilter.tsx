@@ -10,7 +10,7 @@ interface Props {
   onSortItemSelect: (sortItemId: string) => {};
 }
 
-export const SortFilter = ({ onSortItemSelect }: Props) => {
+const SortFilter = ({ onSortItemSelect }: Props) => {
   const [value, setValue] = useState(sortValuesIds.acsendingId);
 
   const handleChange = async (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -27,13 +27,11 @@ export const SortFilter = ({ onSortItemSelect }: Props) => {
     <Wrapper>
       <strong>Sortby</strong>
       <StyledSelect displayEmpty value={value} onChange={handleChange}>
-        {sortValues.map(value => {
-          return (
-            <MenuItem key={value.id} value={value.id}>
-              {value.property}
-            </MenuItem>
-          );
-        })}
+        {sortValues.map(item => (
+          <MenuItem key={item.id} value={item.id}>
+            {item.property}
+          </MenuItem>
+        ))}
       </StyledSelect>
     </Wrapper>
   );

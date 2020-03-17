@@ -36,8 +36,11 @@ module.exports = {
     'operator-linebreak': 'off',
     'no-console': 'off',
     'import/prefer-default-export': 'off',
+    'radix':'off',
+    'no-nested-ternary': 'off',
+    'no-param-reassign': 'off'
   },
-  ignorePatterns: ['_app.tsx', '_document.js'], //Next.js root files
+  ignorePatterns: ['_app.tsx', '_document.js','cypress'], //Next.js root files
   settings: {
     'import/resolver': {
       node: {
