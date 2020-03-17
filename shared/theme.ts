@@ -29,7 +29,7 @@ export const darkTheme = {
   interactionColor: red.dark,
   borderColor: grey.veryLight,
   cardBGColor: dark.black,
-  descriptionColor: dark.light,
+  descriptionColor: dark.white,
 };
 
 export type ThemeType = typeof defaultTheme;
