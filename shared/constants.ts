@@ -1,6 +1,6 @@
 export const BASE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://movies-api-alex.herokuapp.com/'
+    ? 'https://alex-movies-api.herokuapp.com/'
     : 'http://localhost:3000';
 
 const ACSENDING_ID = 'az';
